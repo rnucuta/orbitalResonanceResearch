@@ -7,4 +7,7 @@ class ThermalMap:
     self.rays_obj=Rays()
     self.facets_objs=[]
   def initiate_facets_objects(self):
-    for 
+    for
+  def eliminate_bad_facets(self):
+
+  def line_intersections(self):

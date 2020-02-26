@@ -7,4 +7,8 @@ class facet:
     self.cords=facet_cords
     self.normal=facet_normal
   #take vertice vectors, average
-  
+  def generate_centroid(self):
+    a=0
+    b=0
+    c=0
+    
