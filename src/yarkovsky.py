@@ -25,7 +25,7 @@ class Yarkovsky:
     #return force vectors on asteroid
     return f
   def torque_vectors(self):
-    tor= k*eccentricity*sum(thermal^4*crossProd((facet_centroid_center_of_mass),normal_vectors)
+    tor=k*eccentricity*sum(thermal^4*crossProd((facet_centroid_center_of_mass),normal_vectors))
     #take cross product of radius from com to facet centroid
     #return torque vectors on asteroid
     return tor
