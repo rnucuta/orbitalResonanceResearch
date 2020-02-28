@@ -42,7 +42,11 @@ class Rays:
             temp[2]+=np_asteroid_stl.vectors[i][j][2]/3
         self.centroids.append(temp)
         temp=[0,0,0]
+  def unit(self, vector):
+    vector=numpy.array(vector)
+    return vector/numpy.linalg.norm(vector)
   def generate_all_rays(self, location_of_asteroid):
+    #2-d array of length number of centroids, and stores the parametric eqn of the line for the centroids: [[a,b,c,x1,y1,z1]...]
     for i in range(self.number_of_rays):
-      self.rays_array.append(self.ray_emitter([0,0,0], location_of_asteroid))
+        self.rays_array.append(self.unit(self.centroids[i]).append(self.centroids[i]))
     return self.rays_array
