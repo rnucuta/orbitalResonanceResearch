@@ -25,8 +25,10 @@ t = P #normalized time
 
 #Things to be determined
 r = 2.3633 #distance from Sun(AU)
-depth_steps = 500 #number of depth steps
-time_steps = 300 #number of time steps
+#500
+#300
+depth_steps = 50 #number of depth steps
+time_steps = 400 #number of time steps
 facets = facetNumber() #number of facets
 feta = angles(time_steps)#si(t), feta(feta) #2d array #UNKNOWN
 shadow = shadows(time_steps)#1-not shadowed 0-shadowed #2d array #UNKNOWN
@@ -36,10 +38,11 @@ dz = 2/depth_steps #change in z #0-depth_steps-1
 dt = 1/time_steps #change in t #0-time_steps-1
 Tacc = 0.1#min change in T #UNKNOWN
 
+#print(feta[0][3])
 
-
-def main():
+def te():
 	#initialize
+	final_temps = [[0 for k in range(facets)] for i in range(time_steps)] #timesteps by facets
 	temp = [[0 for k in range(depth_steps)] for i in range(facets)] #facet by depth
 	#temp_temporary = [0 for i in range(depth_steps)]
 	#for calculating accuracy
@@ -47,7 +50,7 @@ def main():
 	#time = 0
 
 	#for facets
-	for facet_num in range(facets-1, facets):
+	for facet_num in range(facets):
 		#initialize temperatures
 		j = 0 #time
 		temp_temporary = setTemp(facet_num)
@@ -55,6 +58,8 @@ def main():
 		
 		#until accurate repeat facet
 		while j < 10*time_steps or not isAccurate(j, surface_temp, facet_num):
+			integer = floor(j/(2*time_steps))
+			time = j - time_steps*floor(j/time_steps)
 			#test
 			# if j > time_steps:
 			# 	break
@@ -64,7 +69,7 @@ def main():
 			if j < time_steps:
 				surface_temp[j] = temp[facet_num][0]
 			else:
-				integer = floor(j/(2*time_steps))
+				#integer = floor(j/(2*time_steps))
 				surface_temp[j-integer*2*time_steps] = temp[facet_num][0]
 
 			#for depth steps
@@ -86,22 +91,29 @@ def main():
 			#set temps
 			temp[facet_num] = temp_temporary[:]
 
+			
+			final_temps[time][facet_num] = temp[facet_num][0]
 			#change time
 			j += 1
 			#print(j)
 		#print(str(facet_num) + ": hey")
-	print(temp)
+	
+	for i in final_temps:
+		print(i)
 
-	hexes = []
-	for i in range(facets):
-		T = temp[i][0]
-		value = RGB(T)
-		hexes.append(value)
-	#print(hexes)
-	#fix deep copy in stl_editor in angles()
-	#check for other array copy mistakes
-	#fix weird temperature
-	#do shadows next
+	return final_temps
+
+
+
+
+	# hexes = []
+	# for i in range(facets):
+	# 	T = final_temps[0][i]
+	# 	value = RGB(T)
+	# 	hexes.append(value)
+
+	# for i in hexes:
+	# 	print(i)
 					
 #calculates Tmean for a facet
 def Tmean(facet_num): 
@@ -140,7 +152,7 @@ def solveExternalBC(facet_num, j, temp):
 	#solution = solve((1-Ab)*shade*angle*Fsun + (gamma/(sqrt(4*pi*P)))*((T1-T)/dz) - E*S*(T**4), T)
 	coeff = [-E*S, 0, 0, -(gamma/(sqrt(4*pi*P)*dz)), (1-Ab)*shade*angle*Fsun + (gamma/(sqrt(4*pi*P)*dz))*T1]
 	solution  = np.roots(coeff)
-	print(solution)
+	#print(solution)
 	for i in solution:
 		if np.isreal(i) and i > 0:
 			#print("real" + str(np.real(i)))
@@ -157,7 +169,11 @@ def solveDepthTemp(facet_num, depth, temp):
 	Tbelow = temp[depth + 1]
 	#print(Tbelow)
 
-	return Tdepth + (1/(4*pi))*(dt/(dz**2))*(Tbelow - 2*Tdepth + Tabove)
+	final = Tdepth + (1/(4*pi))*(dt/(dz**2))*(Tbelow - 2*Tdepth + Tabove)
+	# if final < 0:
+	# 	final = 0
+
+	return abs(final)
 
 #boolean - returns true if accurate enough
 #Consider using the energy method
@@ -178,7 +194,7 @@ def RGB(T):
 	Gt = G(T)
 	Bt = B(T)
 
-	return Rt + Gt + Bt
+	return str(Rt) + str(Gt) + str(Bt)
 
 def R(T):
 	return hex(255)
@@ -198,6 +214,6 @@ def B(T):
 		B = 0;
 
 	return hex(floor(B))
-main()
+#te()
 # for i in range(facets):
 # 	Tmean(i)
