@@ -16,7 +16,7 @@ def angles(time_steps):
 	facets = len(normal_vectors)
 	angles = [[0 for j in range(facets)] for i in range(time_steps)]
 	for i in range(time_steps):
-		angles[i] = (angle([-1, 0, 0], facets))
+		angles[i] = (angle([1, 0, 0], facets))
 
 		rotate(time_steps, cog)
 
@@ -53,7 +53,7 @@ def angle(ray_vector, facets):
 		# if i[1] < 0:
 		# 	left_side = True
 
-		cross_p = np.cross(ray_vector, i)
+		cross_p = np.dot(ray_vector, i)
 		normal_mag = np.linalg.norm(i)
 		equ = np.linalg.norm(cross_p/normal_mag)
 
@@ -64,8 +64,9 @@ def angle(ray_vector, facets):
 		#angle = asin(equ)
 		if equ > 1:
 			equ = 1
-	
-		angles[j] = asin(equ)
+
+		angles[j] = acos(equ)
+		#angles[j] = 0
 		j += 1
 
 	return angles
@@ -106,6 +107,7 @@ def shadow():
 			shadows.append(1)
 
 		j += 1
+
 	return shadows
 
 def shadows(time_steps):
@@ -127,6 +129,7 @@ def shadows(time_steps):
 		for j in range(time_steps):
 			te.append(shadows[j][i])
 			#print(shadows[j][i])
+			
 		shadows1.append(te)
 
 	#print(angles1)
