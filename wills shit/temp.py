@@ -122,6 +122,7 @@ def Tmean(facet_num):
 	for j in range(time_steps):
 		shade = shadow[facet_num][j]
 		angle = cos(feta[facet_num][j])
+		#print(angle)
 		Fsun = Wsun/(r*r)
 		sums += (shade*abs(angle)*Fsun)*dt
 	#print(constant*((sums)**(1/4))/1)
@@ -143,7 +144,7 @@ def solveExternalBC(facet_num, j, temp):
 	integer = floor(j/(time_steps))
 	j = j-integer*time_steps
 	shade = shadow[facet_num][j]
-	angle = feta[facet_num][j]
+	angle = cos(feta[facet_num][j])
 	Fsun = Wsun/(r*r)
 	T1 = temp[1];
 	# print(shade)
@@ -185,6 +186,7 @@ def isAccurate(j, surface_temp, facet_num):
 	#print(diff)
 	if diff <= Tacc:
 		print(str(facet_num) + ": TRUE: " + str(i))
+		print(surface_temp[j])
 		return True
 	
 	return False
