@@ -1,4 +1,4 @@
-rom rays import np_asteroid_stl
+from rays import np_asteroid_stl
 import numpy as np
 import temp
 
