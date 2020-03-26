@@ -1,20 +1,6 @@
-# from asteroid import Asteroid
-# from jupiter import Jupiter
+#IMPORT yarkovsky.py
 
-# #define intial locations for asteroid object and jupiter object
-
-# # time_length
-# # time_step
-
-# def kirkwood():
-#   #yes
-
-# for i in range(o, time_length, time_step):
-#   #yes
-
-import numpy as np
-import trimesh
-
-import numpy as np
-
-#test
+def save_yark_vector(np_vec):
+	with open('final_yark_vector', 'w') as f:
+    	for item in list(np_vec):
+        	f.write("%s\n" % item)
