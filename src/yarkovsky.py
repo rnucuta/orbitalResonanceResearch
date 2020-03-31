@@ -6,7 +6,7 @@ import math
 
 class Yarkovsky:
   def __init__(self):
-    self.Temperature=Temperature()
+    self.Temperature=Temperature(0.01, 400, 50)
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
 
   def yarkovskyforce(self):
