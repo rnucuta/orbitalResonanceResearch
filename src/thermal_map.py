@@ -10,7 +10,7 @@ class ThermalMap:
     self.copy_vectors=self.rays_obj.np_asteroid_stl.vectors
     self.normals=None
   def eliminate_bad_facets(self):
-    distance=self.rays_obj.np_asteroid_stl.get_mass_properties()[1]
+    distance=[-0.3556267774642670,2.273733806435090,1.324572872885377]
     indices_to_remove=[]
     for i in range(self.rays_obj.number_of_rays):
       if np.dot(distance, self.rays_obj.np_asteroid_stl.normals[i])>0:
@@ -22,15 +22,15 @@ class ThermalMap:
     indices_to_remove=self.eliminate_bad_facets()
     rays_generated=self.rays_obj.generate_all_rays(self.rays_obj.np_asteroid_stl.get_mass_properties()[1])
     non_shadowed_array_indices=[]
-    q1=self.rays_obj.np_asteroid_stl.get_mass_properties()[1]*2
-    q2=self.rays_obj.np_asteroid_stl.get_mass_properties()[1]*0.05
+    q1=np.array([-0.3556267774642670,2.273733806435090,1.324572872885377])*200
+    q2=np.array([-0.3556267774642670,2.273733806435090,1.324572872885377])*-200
     for i in range(self.rays_obj.number_of_rays):
       ray_temp=[]
       for j in range(self.rays_obj.number_of_rays):
         if j not in indices_to_remove and j not in non_shadowed_array_indices:
           p1=self.rays_obj.np_asteroid_stl.vectors[j][0]
-          p2=self.rays_obj.np_asteroid_stl.vectors[j][0]
-          p3=self.rays_obj.np_asteroid_stl.vectors[j][0]
+          p2=self.rays_obj.np_asteroid_stl.vectors[j][1]
+          p3=self.rays_obj.np_asteroid_stl.vectors[j][2]
           if SignedVolume(q1,p1,p2,p3)*SignedVolume(q1,p1,p2,p3)<0 and np.sign(SignedVolume(q1,q2,p1,p2))==np.sign(SignedVolume(q1,q2,p2,p3))==np.sign(SignedVolume(q1,q2,p3,p1)):
             ray_temp.append(j)
       distances=[]
