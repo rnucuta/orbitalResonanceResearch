@@ -14,7 +14,7 @@ class Temperature:
 	#print(feta[0][3])
 	def __init__(self, Tacc, r, time_steps, depth_steps):
 		self.thermalmap_obj = ThermalMap()
-		self.Tacc = Tacc
+		self.Tacc = Tacc #min change in T #UNKNOWN
 		self.r = r
 		self.time_steps = time_steps
 		self.depth_steps = depth_steps
@@ -50,7 +50,6 @@ class Temperature:
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
-		self.Tacc = Tacc #min change in T #UNKNOWN
 
 	def temp(self):
 		#initialize
