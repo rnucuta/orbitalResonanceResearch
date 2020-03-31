@@ -52,7 +52,7 @@ class Temperature:
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
 		self.Tacc = Tacc #min change in T #UNKNOWN
 
-	def temp(self.):
+	def temp(self):
 		#initialize
 		final_temps = [[0 for k in range(facets)] for i in range(time_steps)] #timesteps by facets
 		temp = [[0 for k in range(depth_steps)] for i in range(facets)] #facet by depth
