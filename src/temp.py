@@ -48,8 +48,8 @@ class Temperature:
 		self.shadow = self.thermalmap_obj.shadowing() #1-not shadowed 0-shadowed #2d array #UNKNOWN
 		# print(feta)
 		# print(shadow)
-		self.dz = 2/depth_steps #change in z #0-depth_steps-1
-		self.dt = 1/time_steps #change in t #0-time_steps-1
+		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
+		self.dt = 1/self.time_steps #change in t #0-time_steps-1
 		self.Tacc = Tacc #min change in T #UNKNOWN
 
 	def temp(self.):
