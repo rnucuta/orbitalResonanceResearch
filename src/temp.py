@@ -155,9 +155,9 @@ class Temperature:
 		integer = floor(j/(self.time_steps))
 		j = j-integer*self.time_steps
 		if self.shadow.contains(j):
-				shade = 1
-			else:
-				shade = 0
+			shade = 1
+		else:
+			shade = 0
 		angle = self.feta[facet_num][j]
 		Fsun = self.Wsun/(self.r**2)
 		T1 = temp[1];
