@@ -4,11 +4,10 @@ import numpy as np
 
 class ThermalMap:
   #thermal snapshot per time step
-  def __init__(self, starting_timestep):
+  def __init__(self):
     self.rays_obj=Rays()
     self.copy_vectors=self.rays_obj.np_asteroid_stl.vectors
     self.normals=None
-    self.timestep=starting_timestep
   def eliminate_bad_facets(self):
     distance=self.rays_obj.np_asteroid_stl.get_mass_properties()[1]
     indices_to_remove=[]
@@ -42,6 +41,27 @@ class ThermalMap:
     #If SignedVolume(q1,p1,p2,p3) and SignedVolume(q2,p1,p2,p3) have different signs AND SignedVolume(q1,q2,p1,p2), SignedVolume(q1,q2,p2,p3) and SignedVolume(q1,q2,p3,p1) have the same sign, then there is an intersection
   def SignedVolume(self,a,b,c,d):
     return (1.0/6.0)*np.dot(np.cross(np.subtract(b,a),np.subtract(c,a)),np.subtract(d,a))
-  
+
   def facets_temps(self):
     pass
+
+  def orient(self):
+    v = [-0.0059690746,-0.0163998975,-0.9998476952]
+    itheta = math.acos(0.9998476952/np.linalg.norm(v))
+    axis = np.cross([0,0,-1],v)
+    self.rays_obj.np_asteroid_stl.rotate(axis,math.radians(itheta))
+
+  def rotation(self,timesteps):
+    v = [-0.0059690746,-0.0163998975,-0.9998476952]
+    self.rays_obj.np_asteroid_stl.rotate(v,math.radians(360/timesteps))
+
+  def phi(self,position):
+    orient()
+    facetlist = []
+    for f in range(len(self.rays_obj.np_asteroid_stl.vectors)):
+      philist = []
+      for t in range(len(therm_map)):
+        philist.append(np.divide(np.dot(position,self.rays_obj.np_asteroid_stl.normals(f))),(np.linalg.norm(position)*np.linalg.norm(self.rays_obj.np_asteroid_stl.normals(f))))
+        rotation()
+      facetlist.append(philist)
+    return facetlist
