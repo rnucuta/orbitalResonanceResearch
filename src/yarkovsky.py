@@ -15,7 +15,7 @@ class Yarkovsky:
     speedoflight = 2.998 * 10^8
     forcelist = []
     temporaryforce = None
-    therm_map=temp.te()
+    therm_map= Temperature.temp()
     for t in range(len(therm_map)):
       temporaryforce = []
       for f in range(len(self.np_asteroid_stl.vectors[1])):
