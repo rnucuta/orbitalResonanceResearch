@@ -125,7 +125,8 @@ class Temperature:
 						
 	#calculates Tmean for a facet
 	def Tmean(self, facet_num): 
-		constant = (((1-self.Ab)/(self.E*self.S))**(1/4))
+		Fsun = self.Wsun/(self.r**2)
+		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
 		for j in range(self.time_steps):
 			if self.shadow.contains(j):
@@ -134,9 +135,8 @@ class Temperature:
 				shade = 0
 			angle = self.feta[facet_num][j]
 			#print(angle)
-			Fsun = self.Wsun/(self.r**2)
-			sums += ((shade*abs(angle)*Fsun)**(1/4))*self.dt
-		#print(constant*((sums)**(1/4))/1)
+			
+			sums += ((shade*abs(angle))**(1/4))*self.dt
 		return (constant*(sums))/1
 
 	#assigns an initial temperature to all depth steps for a facet
