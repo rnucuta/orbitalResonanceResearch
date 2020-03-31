@@ -57,7 +57,7 @@ class ThermalMap:
     self.rays_obj.np_asteroid_stl.rotate(v,math.radians(360/timesteps))
 
   def phi(self):
-  	#position = [-0.3556267774642670,2.273733806435090,1.324572872885377]
+  	position = [-0.3556267774642670,2.273733806435090,1.324572872885377]
     orient()
     facetlist = []
     for f in range(len(self.rays_obj.np_asteroid_stl.vectors)):
