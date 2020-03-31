@@ -11,34 +11,6 @@ import thermal_map
 
 #constants
 class Temperature:
-	#pi
-	P = 21768.516 #period of rotation(spin)(seconds)
-	gamma = 110 #sqrt(k*rho*C) thermal inertia
-	k = 4.5 #thermal conductivity #UNKNOWN
-	rho = 1800#density #UNKNOWN
-	C = (gamma**2)/(k*rho)#specific heat capacity #UNKNOWN
-	E = 0.7 #emissivity
-	S = 5.67 * (10**-8)#Stefan–Boltzmann constant
-	Wsun = 1367 #Power from sun (Wsun/(rh)^2)(W/m^2)
-	Ab = 0.24 #Bond Albedo
-	z = sqrt((4*pi*P*k)/(rho*C)) #normalized depth
-	t = P #normalized time
-
-	#Things to be determined
-	r = self.r #distance from Sun(AU)
-	#500
-	#300
-	depth_steps = self.depth_steps #number of depth steps
-	time_steps = self.time_steps #number of time steps
-	facets = self.thermalmap_obj.rays_obj.number_of_rays #number of facets
-	feta = self.thermalmap_obj.phi(position) #si(t), feta(feta) #2d array #UNKNOWN
-	shadow = self.thermalmap_obj.shadowing() #1-not shadowed 0-shadowed #2d array #UNKNOWN
-	# print(feta)
-	# print(shadow)
-	dz = 2/depth_steps #change in z #0-depth_steps-1
-	dt = 1/time_steps #change in t #0-time_steps-1
-	Tacc = self.Tacc #min change in T #UNKNOWN
-
 	#print(feta[0][3])
 	def __init__(self, Tacc, r, time_steps, depth_steps):
 		self.thermalmap_obj = ThermalMap()
@@ -46,8 +18,41 @@ class Temperature:
 		self.r = r
 		self.time_steps = time_steps
 		self.depth_steps = depth_steps
+		self.P = 21768.516 #period of rotation(spin)(seconds)
+		self.gamma = 110 #sqrt(k*rho*C) thermal inertia
+		self.k = 4.5 #thermal conductivity #UNKNOWN
+		self.rho = 1800#density #UNKNOWN
+		self.C = (self.gamma**2)/(self.k*self.rho)#specific heat capacity #UNKNOWN
+		self.E = 0.7 #emissivity
+		self.S = 5.67 * (10**-8)#Stefan–Boltzmann constant
+		self.Wsun = 1367 #Power from sun (Wsun/(rh)^2)(W/m^2)
+		self.Ab = 0.24 #Bond Albedo
+		self.z = sqrt((4*pi*self.P*self.k)/(self.rho*self.C)) #normalized depth
+		self.t = self.P #normalized time
 
-	def temp():
+		#Things to be determined
+		self.r = r #distance from Sun(AU)
+		#500
+		#300
+		self.depth_steps = depth_steps #number of depth steps
+		self.time_steps = time_steps #number of time steps
+		self.facets = self.thermalmap_obj.rays_obj.number_of_rays #number of facets
+		self.feta = self.thermalmap_obj.phi(position) #si(t), feta(feta) #2d array #UNKNOWN
+
+
+		#####
+		#WILL CALL THE ORIENT FUNCTION HERE
+		###
+
+
+		self.shadow = self.thermalmap_obj.shadowing() #1-not shadowed 0-shadowed #2d array #UNKNOWN
+		# print(feta)
+		# print(shadow)
+		self.dz = 2/depth_steps #change in z #0-depth_steps-1
+		self.dt = 1/time_steps #change in t #0-time_steps-1
+		self.Tacc = Tacc #min change in T #UNKNOWN
+
+	def temp(self.):
 		#initialize
 		final_temps = [[0 for k in range(facets)] for i in range(time_steps)] #timesteps by facets
 		temp = [[0 for k in range(depth_steps)] for i in range(facets)] #facet by depth
@@ -123,7 +128,7 @@ class Temperature:
 		# 	print(i)
 						
 	#calculates Tmean for a facet
-	def Tmean(facet_num): 
+	def Tmean(self,facet_num): 
 		constant = (((1-Ab)/(E*S))**(1/4))
 		sums = 0
 		for j in range(time_steps):
@@ -136,7 +141,7 @@ class Temperature:
 		return (constant*((sums)**(1/4)))/1
 
 	#assigns an initial temperature to all depth steps for a facet
-	def setTemp(facet_num):
+	def setTemp(self,facet_num):
 		temperature = [0 for j in range(depth_steps)]
 		mean = Tmean(facet_num)
 		for i in range(depth_steps):
@@ -147,7 +152,7 @@ class Temperature:
 		return temperature
 
 	#solves external BC, returns temp
-	def solveExternalBC(facet_num, j, temp):
+	def solveExternalBC(self,facet_num, j, temp):
 		integer = floor(j/(time_steps))
 		j = j-integer*time_steps
 		shade = shadow[facet_num][j]
@@ -169,7 +174,7 @@ class Temperature:
 		# print(solution)
 		# return solution
 	#solve temperature for depth steps
-	def solveDepthTemp(facet_num, depth, temp):
+	def solveDepthTemp(self,facet_num, depth, temp):
 		Tabove = temp[depth - 1]
 		#print(Tabove)
 		Tdepth = temp[depth]
@@ -185,7 +190,7 @@ class Temperature:
 
 	#boolean - returns true if accurate enough
 	#Consider using the energy method
-	def isAccurate(j, surface_temp, facet_num):
+	def isAccurate(self,j, surface_temp, facet_num):
 		integer = floor(j/(time_steps))
 		i = j
 		j = j-integer*time_steps
@@ -198,17 +203,17 @@ class Temperature:
 		
 		return False
 
-	def RGB(T):
+	def RGB(self,T):
 		Rt = R(T)
 		Gt = G(T)
 		Bt = B(T)
 
 		return str(Rt) + str(Gt) + str(Bt)
 
-	def R(T):
+	def R(self,T):
 		return hex(255)
 
-	def G(T):
+	def G(self,T):
 		G = (255/105)*(T-215)
 
 		if G < 0:
@@ -216,7 +221,7 @@ class Temperature:
 
 		return hex(floor(G))
 
-	def B(T):
+	def B(self,T):
 		B = (255/1225)*((T-285)**2)
 
 		if T-285 < 0:

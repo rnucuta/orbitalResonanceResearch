@@ -12,7 +12,7 @@ class ThermalMap:
     distance=self.rays_obj.np_asteroid_stl.get_mass_properties()[1]
     indices_to_remove=[]
     for i in range(self.rays_obj.number_of_rays):
-      if np.dot(distance, self.rays_obj.np_asteroid_stl.normals[i])<0:
+      if np.dot(distance, self.rays_obj.np_asteroid_stl.normals[i])>0:
         indices_to_remove.append(i)
     return indices_to_remove
   
