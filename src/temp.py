@@ -121,7 +121,7 @@ def Tmean(facet_num):
 	sums = 0
 	for j in range(time_steps):
 		shade = shadow[facet_num][j]
-		angle = cos(feta[facet_num][j])
+		angle = feta[facet_num][j]
 		#print(angle)
 		Fsun = Wsun/(r*r)
 		sums += (shade*abs(angle)*Fsun)*dt
@@ -144,7 +144,7 @@ def solveExternalBC(facet_num, j, temp):
 	integer = floor(j/(time_steps))
 	j = j-integer*time_steps
 	shade = shadow[facet_num][j]
-	angle = cos(feta[facet_num][j])
+	angle = feta[facet_num][j]
 	Fsun = Wsun/(r*r)
 	T1 = temp[1];
 	# print(shade)
