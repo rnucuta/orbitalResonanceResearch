@@ -38,13 +38,6 @@ class Temperature:
 		self.time_steps = time_steps #number of time steps
 		self.facets = self.thermalmap_obj.rays_obj.number_of_rays #number of facets
 		self.feta = self.thermalmap_obj.phi(position) #si(t), feta(feta) #2d array #UNKNOWN
-
-
-		#####
-		#WILL CALL THE ORIENT FUNCTION HERE
-		###
-
-
 		self.shadow = self.thermalmap_obj.shadowing() #1-not shadowed 0-shadowed #2d array #UNKNOWN
 		# print(feta)
 		# print(shadow)
