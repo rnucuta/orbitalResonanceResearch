@@ -7,7 +7,7 @@ from sympy import solve
 from sympy import Symbol
 from math import *
 #from stl_editor import angles, facetNumber, shadows
-import thermal_map
+from thermal_map import ThermalMap
 
 #constants
 class Temperature:
