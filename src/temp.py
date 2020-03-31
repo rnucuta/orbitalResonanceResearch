@@ -135,9 +135,9 @@ class Temperature:
 			angle = self.feta[facet_num][j]
 			#print(angle)
 			Fsun = self.Wsun/(self.r**2)
-			sums += (shade*abs(angle)*Fsun)*self.dt
+			sums += ((shade*abs(angle)*Fsun)**(1/4))*self.dt
 		#print(constant*((sums)**(1/4))/1)
-		return (constant*((sums)**(1/4)))/1
+		return (constant*(sums))/1
 
 	#assigns an initial temperature to all depth steps for a facet
 	def setTemp(self, facet_num):
