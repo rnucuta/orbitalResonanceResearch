@@ -61,11 +61,11 @@ class Temperature:
 		for facet_num in range(self.facets):
 			#initialize temperatures
 			j = 0 #time
-			temp_temporary = setTemp(facet_num)
+			temp_temporary = self.setTemp(facet_num)
 			temp[facet_num] = temp_temporary[:]
 			
 			#until accurate repeat facet
-			while j < 10*self.time_steps or not isAccurate(j, surface_temp, facet_num):
+			while j < 10*self.time_steps or not self.isAccurate(j, surface_temp, facet_num):
 				integer = floor(j/(2*self.time_steps))
 				time = j - self.time_steps*floor(j/self.time_steps)
 				#test
@@ -84,7 +84,7 @@ class Temperature:
 				for i in range(self.depth_steps):
 					#top
 					if i == 0:
-						temp_temporary[i] = solveExternalBC(facet_num, j, temp_temporary)
+						temp_temporary[i] = self.solveExternalBC(facet_num, j, temp_temporary)
 						continue
 
 					#bottom
@@ -94,7 +94,7 @@ class Temperature:
 						continue
 
 					#everything else
-					temp_temporary[i] = solveDepthTemp(facet_num, i, temp_temporary)
+					temp_temporary[i] = self.solveDepthTemp(facet_num, i, temp_temporary)
 
 				#set temps
 				temp[facet_num] = temp_temporary[:]
