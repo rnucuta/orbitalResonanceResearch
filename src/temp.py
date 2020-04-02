@@ -106,6 +106,9 @@ class Temperature:
 				#change time
 				j += 1
 				#print(j)
+				if j < self.time_steps:
+					self.thermalmap_obj.rotation(self.time_steps)
+					self.shadow = self.thermalmap_obj.shadowing()
 			# print(str(facet_num) + ": hey")
 		
 		# for i in final_temps:
