@@ -10,7 +10,6 @@ class Yarkovsky:
     self.Temperature=Temperature(0.01, 400, 50)
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
     self.therm_map= self.Temperature.temp()
-    self.yarkovskyforce()
 
   def yarkovskyforce(self):
     print("Yarkovsky initiated")
