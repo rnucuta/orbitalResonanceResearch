@@ -104,7 +104,7 @@ class Temperature:
 				#change time
 				j += 1
 				#print(j)
-			print(str(facet_num) + ": hey")
+			# print(str(facet_num) + ": hey")
 		
 		# for i in final_temps:
 			#print(i)
@@ -200,7 +200,7 @@ class Temperature:
 		#print(diff)
 		if diff <= self.Tacc:
 			print(str(facet_num) + ": TRUE: " + str(i))
-			print(surface_temp[j])
+			# print(surface_temp[j])
 			return True
 		
 		return False

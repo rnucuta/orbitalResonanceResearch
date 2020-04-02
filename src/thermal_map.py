@@ -37,6 +37,7 @@ class ThermalMap:
       for ray in ray_temp:
         distances.append(np.linalg.norm(self.rays_obj.centroids[ray]))
       non_shadowed_array_indices.append(ray_temp[distances.index(min(distances))])
+    print("Shadowing Complete")
     return non_shadowed_array_indices
 #p1,p2,p3 triangle; q1,q2 points on the line far away in both direction
     #If SignedVolume(q1,p1,p2,p3) and SignedVolume(q2,p1,p2,p3) have different signs AND SignedVolume(q1,q2,p1,p2), SignedVolume(q1,q2,p2,p3) and SignedVolume(q1,q2,p3,p1) have the same sign, then there is an intersection
