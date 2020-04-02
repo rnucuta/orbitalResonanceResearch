@@ -139,6 +139,7 @@ class Temperature:
 			#print(angle)
 			
 			sums += ((shade*abs(angle))**(1/4))*self.dt
+		print((constant*(sums))/1)
 		return (constant*(sums))/1
 
 	#assigns an initial temperature to all depth steps for a facet
