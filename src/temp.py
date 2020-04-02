@@ -44,7 +44,7 @@ class Temperature:
 		###
 
 		print("temp2")
-		self.shadow = self.thermalmap_obj.shadowing() #1-not shadowed 0-shadowed #2d array #UNKNOWN
+		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
 		# print(feta)
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
@@ -104,11 +104,11 @@ class Temperature:
 				
 				final_temps[time][facet_num] = temp[facet_num][0]
 				#change time
-				j += 1
 				#print(j)
 				if j < self.time_steps:
 					self.thermalmap_obj.rotation(self.time_steps)
-					self.shadow = self.thermalmap_obj.shadowing()
+					self.shadow.append(self.thermalmap_obj.shadowing())
+				j += 1
 			# print(str(facet_num) + ": hey")
 		
 		# for i in final_temps:
