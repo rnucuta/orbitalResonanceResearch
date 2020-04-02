@@ -10,6 +10,7 @@ class Yarkovsky:
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
 
   def yarkovskyforce(self):
+    ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(np_asteroid_stl.vectors[1][2],np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
     boltzmann = 1.38064852 * 10^(-23)
     speedoflight = 2.998 * 10^8
@@ -18,8 +19,8 @@ class Yarkovsky:
     therm_map= self.Temperature.temp()
     for t in range(len(therm_map)):
       temporaryforce = []
-      for f in range(len(self.np_asteroid_stl.vectors[1])):
-        facetforce = np.multiply(self.np_asteroid_stl.normals(f),(therm_map[t][f])**(4) * -2 * boltzmann * emissivity / (3*speedoflight))
+      for f in range(len(self.np_asteroid_stl.vectors)):
+        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
       forcelist.append(temporaryforce)
     finalforce = [0,0,0]
@@ -31,11 +32,12 @@ class Yarkovsky:
     torquelist = []
     temporarytorque = None
     com = self.np_asteroid_stl.mass_properties()[1]
+    ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(np_asteroid_stl.vectors[1][2],np_asteroid_stl.vectors[1][1])))**(2) / 4
     for t in range(len(therm_map)):
       temporarytorque = []
       for f in range(len(self.np_asteroid_stl.vectors)):
-        centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0,self.np_asteroid_stl.v1),self.np_asteroid_stl.v2),3)
-        facetforce = np.multiply(self.np_asteroid_stl.normals(f),(therm_map[t][f])^(4) * -2 * boltzmann * emmissivity / (3*speedoflight))
+        centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)
+        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(therm_map[t][f])^(4) * -2 * boltzmann * emmissivity * ds / (3*speedoflight))
         facettorque = np.cross(facetforce,(centroid-com))
         temporarytorque = np.add(temporarytorque,facettorque)
       torquelist.append(temporarytorque)
