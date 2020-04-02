@@ -5,6 +5,7 @@ import math
 class ThermalMap:
   #thermal snapshot per time step
   def __init__(self):
+    print("thermal map class init")
     self.position = [-0.3556267774642670,2.273733806435090,1.324572872885377]
     self.rays_obj=Rays()
     self.copy_vectors=self.rays_obj.np_asteroid_stl.vectors

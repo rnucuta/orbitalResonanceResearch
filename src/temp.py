@@ -13,6 +13,7 @@ from thermal_map import ThermalMap
 class Temperature:
 	#print(feta[0][3])
 	def __init__(self, Tacc, time_steps, depth_steps):
+		print("temp init")
 		self.thermalmap_obj = ThermalMap()
 		self.Tacc = Tacc
 		self.time_steps = time_steps

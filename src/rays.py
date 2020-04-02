@@ -14,6 +14,7 @@ class Rays:
     # self.ast_com=center_of_mass
     # self.ast_mesh=mesh
     #need to update the number of triangles
+    print("rays class init")
     self.rays_array=[]
     self.np_asteroid_stl = mesh.Mesh.from_file('Steins.stl')
     self.number_of_rays=len(self.np_asteroid_stl.vectors)
@@ -34,6 +35,7 @@ class Rays:
     # unit_vector.append(temp)
     # return unit_vector
   def generate_centroids(self):
+    print("centroids")
     temp=[0,0,0]
     temp2=[]
     for i in range(self.number_of_rays):
@@ -51,4 +53,5 @@ class Rays:
     #2-d array of length number of centroids, and stores the parametric eqn of the line for the centroids: [[a,b,c,x1,y1,z1]...]
     for i in range(self.number_of_rays):
         self.rays_array.append(self.unit(self.centroids[i]).append(self.centroids[i]))
+    print("Rays Generated")
     return self.rays_array
