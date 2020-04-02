@@ -35,7 +35,7 @@ class ThermalMap:
           p3=self.rays_obj.np_asteroid_stl.vectors[j][2]+distance
           q1=rays_generated[i][:3]*1000+rays_generated[i][3:]
           q2=rays_generated[i][:3]*-1000+rays_generated[i][3:]
-          if self.SignedVolume(q1,p1,p2,p3)*self.SignedVolume(q1,p1,p2,p3)<0 and np.sign(self.SignedVolume(q1,q2,p1,p2))==np.sign(self.SignedVolume(q1,q2,p2,p3))==np.sign(self.SignedVolume(q1,q2,p3,p1)):
+          if self.SignedVolume(q1,p1,p2,p3)*self.SignedVolume(q2,p1,p2,p3)<0 and np.sign(self.SignedVolume(q1,q2,p1,p2))==np.sign(self.SignedVolume(q1,q2,p2,p3))==np.sign(self.SignedVolume(q1,q2,p3,p1)):
             ray_temp.append(j)
       distances=[]
       for ray in ray_temp:
