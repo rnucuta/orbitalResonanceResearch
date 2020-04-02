@@ -131,7 +131,7 @@ class Temperature:
 		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
 		for j in range(self.time_steps):
-			if self.shadow.contains(j):
+			if j in self.shadow:
 				shade = 1
 			else:
 				shade = 0
@@ -156,7 +156,7 @@ class Temperature:
 	def solveExternalBC(self, facet_num, j, temp):
 		integer = floor(j/(self.time_steps))
 		j = j-integer*self.time_steps
-		if self.shadow.contains(j):
+		if j in self.shadow:
 			shade = 1
 		else:
 			shade = 0
