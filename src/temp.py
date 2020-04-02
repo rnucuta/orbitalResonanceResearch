@@ -62,6 +62,10 @@ class Temperature:
 		#for facets
 		for facet_num in range(self.facets):
 			#initialize temperatures
+			for j in range(time_steps):
+				self.shadow.append(self.thermalmap_obj.shadowing())
+				self.thermalmap_obj.rotation(self.time_steps)
+					
 			j = 0 #time
 			temp_temporary = self.setTemp(facet_num)
 			temp[facet_num] = temp_temporary[:]
@@ -105,12 +109,6 @@ class Temperature:
 				final_temps[time][facet_num] = temp[facet_num][0]
 				#change time
 				#print(j)
-				if j < self.time_steps-1:
-					self.thermalmap_obj.rotation(self.time_steps)
-					self.shadow.append(self.thermalmap_obj.shadowing())
-				
-				if j == self.time_steps - 1:
-					self.thermalmap_obj.rotation(self.time_steps)
 					
 				j += 1
 			# print(str(facet_num) + ": hey")
