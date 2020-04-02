@@ -8,15 +8,17 @@ class Yarkovsky:
   def __init__(self):
     self.Temperature=Temperature(0.01, 400, 50)
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
+    self.therm_map= self.Temperature.temp()
 
   def yarkovskyforce(self):
+    print("Yarkovsky initiated")
     ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(np_asteroid_stl.vectors[1][2],np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
     boltzmann = 1.38064852 * 10^(-23)
     speedoflight = 2.998 * 10^8
     forcelist = []
     temporaryforce = None
-    therm_map= self.Temperature.temp()
+    print("Yarkovsky variables instantiated")
     for t in range(len(therm_map)):
       temporaryforce = []
       for f in range(len(self.np_asteroid_stl.vectors)):
@@ -24,15 +26,22 @@ class Yarkovsky:
         temporaryforce = np.add(temporaryforce,facetforce)
       forcelist.append(temporaryforce)
     finalforce = [0,0,0]
+    print("Iteration Successful")
     for x in forcelist:
       finalforce = np.add(finalforce,x)
     return np.divide(finalforce,len(therm_map))
+    print("Yarkovsky force Successful")
 
   def yorptorque(self):
+    print("YORP Torque initiated")
     torquelist = []
     temporarytorque = None
     com = self.np_asteroid_stl.mass_properties()[1]
     ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(np_asteroid_stl.vectors[1][2],np_asteroid_stl.vectors[1][1])))**(2) / 4
+    emissivity = 0.73
+    boltzmann = 1.38064852 * 10^(-23)
+    speedoflight = 2.998 * 10^8
+    print("YORP variables instantiated")
     for t in range(len(therm_map)):
       temporarytorque = []
       for f in range(len(self.np_asteroid_stl.vectors)):
@@ -42,6 +51,8 @@ class Yarkovsky:
         temporarytorque = np.add(temporarytorque,facettorque)
       torquelist.append(temporarytorque)
     finaltorque = [0,0,0]
+    print("YORP Iteration Successful")
     for x in torquelist:
       finaltorque = np.add(finaltorque,x)
     return np.divide(finaltorque,len(therm_map))
+    print("YORP Torque Successful")
