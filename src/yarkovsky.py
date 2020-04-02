@@ -6,6 +6,7 @@ import math
 
 class Yarkovsky:
   def __init__(self):
+    print("Yark init")
     self.Temperature=Temperature(0.01, 400, 50)
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
     self.therm_map= self.Temperature.temp()
@@ -19,17 +20,17 @@ class Yarkovsky:
     forcelist = []
     temporaryforce = None
     print("Yarkovsky variables instantiated")
-    for t in range(len(therm_map)):
+    for t in range(len(self.therm_map)):
       temporaryforce = []
       for f in range(len(self.np_asteroid_stl.vectors)):
-        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
+        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
       forcelist.append(temporaryforce)
     finalforce = [0,0,0]
     print("Iteration Successful")
     for x in forcelist:
       finalforce = np.add(finalforce,x)
-    return np.divide(finalforce,len(therm_map))
+    return np.divide(finalforce,len(self.therm_map))
     print("Yarkovsky force Successful")
 
   def yorptorque(self):
@@ -42,11 +43,11 @@ class Yarkovsky:
     boltzmann = 1.38064852 * 10^(-23)
     speedoflight = 2.998 * 10^8
     print("YORP variables instantiated")
-    for t in range(len(therm_map)):
+    for t in range(len(self.therm_map)):
       temporarytorque = []
       for f in range(len(self.np_asteroid_stl.vectors)):
         centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)
-        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(therm_map[t][f])^(4) * -2 * boltzmann * emmissivity * ds / (3*speedoflight))
+        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])^(4) * -2 * boltzmann * emmissivity * ds / (3*speedoflight))
         facettorque = np.cross(facetforce,(centroid-com))
         temporarytorque = np.add(temporarytorque,facettorque)
       torquelist.append(temporarytorque)
@@ -54,5 +55,5 @@ class Yarkovsky:
     print("YORP Iteration Successful")
     for x in torquelist:
       finaltorque = np.add(finaltorque,x)
-    return np.divide(finaltorque,len(therm_map))
+    return np.divide(finaltorque,len(self.therm_map))
     print("YORP Torque Successful")

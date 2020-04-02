@@ -8,11 +8,13 @@ from sympy import Symbol
 from math import *
 #from stl_editor import angles, facetNumber, shadows
 from thermal_map import ThermalMap
+from tqdm import tqdm
 
 #constants
 class Temperature:
 	#print(feta[0][3])
 	def __init__(self, Tacc, time_steps, depth_steps):
+		print("temp init")
 		self.thermalmap_obj = ThermalMap()
 		self.Tacc = Tacc
 		self.time_steps = time_steps
@@ -34,6 +36,7 @@ class Temperature:
 		#500
 		#300
 		self.facets = self.thermalmap_obj.rays_obj.number_of_rays #number of facets
+		print("temp1")
 		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array #UNKNOWN
 
 
@@ -41,14 +44,15 @@ class Temperature:
 		#WILL CALL THE ORIENT FUNCTION HERE
 		###
 
-
-		self.shadow = self.thermalmap_obj.shadowing() #1-not shadowed 0-shadowed #2d array #UNKNOWN
+		print("temp2")
+		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
 		# print(feta)
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
-
+	
 	def temp(self):
+		print("r: " + str(self.r))
 		#initialize
 		final_temps = [[0 for k in range(self.facets)] for i in range(self.time_steps)] #timesteps by facets
 		temp = [[0 for k in range(self.depth_steps)] for i in range(self.facets)] #facet by depth
@@ -56,10 +60,14 @@ class Temperature:
 		#for calculating accuracy
 		surface_temp = [0 for j in range(2*self.time_steps)] #temp of top depth for each time for one facet
 		#time = 0
-
+		
+		for j in tqdm(range(self.time_steps)):
+			self.shadow.append(self.thermalmap_obj.shadowing())
+			self.thermalmap_obj.rotation(self.time_steps)
+				
 		#for facets
 		for facet_num in range(self.facets):
-			#initialize temperatures
+			#initialize temperatures	
 			j = 0 #time
 			temp_temporary = self.setTemp(facet_num)
 			temp[facet_num] = temp_temporary[:]
@@ -102,8 +110,9 @@ class Temperature:
 				
 				final_temps[time][facet_num] = temp[facet_num][0]
 				#change time
-				j += 1
 				#print(j)
+					
+				j += 1
 			# print(str(facet_num) + ": hey")
 		
 		# for i in final_temps:
@@ -129,7 +138,7 @@ class Temperature:
 		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
 		for j in range(self.time_steps):
-			if self.shadow.contains(j):
+			if facet_num in self.shadow[j]:
 				shade = 1
 			else:
 				shade = 0
@@ -137,6 +146,7 @@ class Temperature:
 			#print(angle)
 			
 			sums += ((shade*abs(angle))**(1/4))*self.dt
+		print((constant*(sums))/1)
 		return (constant*(sums))/1
 
 	#assigns an initial temperature to all depth steps for a facet
@@ -154,7 +164,7 @@ class Temperature:
 	def solveExternalBC(self, facet_num, j, temp):
 		integer = floor(j/(self.time_steps))
 		j = j-integer*self.time_steps
-		if self.shadow.contains(j):
+		if facet_num in self.shadow[j]:
 			shade = 1
 		else:
 			shade = 0

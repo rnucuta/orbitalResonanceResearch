@@ -14,10 +14,10 @@ class Rays:
     # self.ast_com=center_of_mass
     # self.ast_mesh=mesh
     #need to update the number of triangles
+    print("rays class init")
     self.rays_array=[]
-    self.np_asteroid_stl = mesh.Mesh.from_file('Steins.stl')
+    self.np_asteroid_stl = mesh.Mesh.from_file('Steins100.stl')
     self.number_of_rays=len(self.np_asteroid_stl.vectors)
-    self.centroids=self.generate_centroids()
   # def ray_emitter(self, location_of_sun, location_of_asteroid):
     #plane of asteroid is an array of length 4: [a,b,c,d]
     #ax+by+cz=d
@@ -47,8 +47,11 @@ class Rays:
   def unit(self, vector):
     vector=numpy.array(vector)
     return vector/numpy.linalg.norm(vector)
-  def generate_all_rays(self, location_of_asteroid):
+  def generate_all_rays(self):
     #2-d array of length number of centroids, and stores the parametric eqn of the line for the centroids: [[a,b,c,x1,y1,z1]...]
+    position=numpy.array([-0.3556267774642670,2.273733806435090,1.324572872885377])*149598073
+    self.centroids=self.generate_centroids()+position
     for i in range(self.number_of_rays):
-        self.rays_array.append(self.unit(self.centroids[i]).append(self.centroids[i]))
+        n=numpy.concatenate((self.unit(self.centroids[i]),self.centroids[i]), axis=0)
+        self.rays_array.append(n)
     return self.rays_array
