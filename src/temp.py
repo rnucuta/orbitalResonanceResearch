@@ -104,11 +104,11 @@ class Temperature:
 				#change time
 				j += 1
 				#print(j)
-			#print(str(facet_num) + ": hey")
+			print(str(facet_num) + ": hey")
 		
 		# for i in final_temps:
 			#print(i)
-
+		print(final_temps[0])
 		return final_temps
 
 
@@ -144,7 +144,7 @@ class Temperature:
 		temperature = [0 for j in range(self.depth_steps)]
 		mean = self.Tmean(facet_num)
 		for i in range(self.depth_steps):
-			Ti = mean#*(exp(-2*pi*i*dz))
+			Ti = 1.7*mean#*(exp(-2*pi*i*dz))
 			temperature[i] = Ti
 
 		#print(temperature)
