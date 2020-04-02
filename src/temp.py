@@ -8,6 +8,7 @@ from sympy import Symbol
 from math import *
 #from stl_editor import angles, facetNumber, shadows
 from thermal_map import ThermalMap
+from tqdm import tqdm
 
 #constants
 class Temperature:
@@ -62,7 +63,7 @@ class Temperature:
 		#for facets
 		for facet_num in range(self.facets):
 			#initialize temperatures
-			for j in range(time_steps):
+			for j in tqdm(range(self.time_steps)):
 				self.shadow.append(self.thermalmap_obj.shadowing())
 				self.thermalmap_obj.rotation(self.time_steps)
 					

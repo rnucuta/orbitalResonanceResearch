@@ -21,7 +21,6 @@ class ThermalMap:
   
   #shadowing code
   def shadowing(self):
-    print("Shadowing Complete")
     distance=np.array([-0.3556267774642670,2.273733806435090,1.324572872885377])*149598073
     indices_to_remove=self.eliminate_bad_facets()
     rays_generated=self.rays_obj.generate_all_rays()
@@ -44,6 +43,8 @@ class ThermalMap:
         non_shadowed_array_indices.append(ray_temp[distances.index(min(distances))])
       except:
         pass
+    if non_shadowed_array_indices==[]:
+      print("Shadow empty!!")
     return non_shadowed_array_indices
 #p1,p2,p3 triangle; q1,q2 points on the line far away in both direction
     #If SignedVolume(q1,p1,p2,p3) and SignedVolume(q2,p1,p2,p3) have different signs AND SignedVolume(q1,q2,p1,p2), SignedVolume(q1,q2,p2,p3) and SignedVolume(q1,q2,p3,p1) have the same sign, then there is an intersection
