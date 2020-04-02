@@ -1,6 +1,6 @@
 from rays import Rays
-from facets import Facets
 import numpy as np
+import math
 
 class ThermalMap:
   #thermal snapshot per time step
@@ -56,13 +56,13 @@ class ThermalMap:
     v = [-0.0059690746,-0.0163998975,-0.9998476952]
     self.rays_obj.np_asteroid_stl.rotate(v,math.radians(360/timesteps))
 
-  def phi(self):
-  	position = [-0.3556267774642670,2.273733806435090,1.324572872885377]
-    orient()
+  def phi(self, timesteps):
+    position = [-0.3556267774642670,2.273733806435090,1.324572872885377]
+    self.orient()
     facetlist = []
     for f in range(len(self.rays_obj.np_asteroid_stl.vectors)):
       philist = []
-      for t in range(len(therm_map)):
+      for t in range(len(timesteps)):
         philist.append(np.divide(np.dot(position,self.rays_obj.np_asteroid_stl.normals(f))),(np.linalg.norm(position)*np.linalg.norm(self.rays_obj.np_asteroid_stl.normals(f))))
         rotation()
       facetlist.append(philist)

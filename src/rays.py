@@ -16,7 +16,7 @@ class Rays:
     #need to update the number of triangles
     self.rays_array=[]
     self.np_asteroid_stl = mesh.Mesh.from_file('Steins.stl')
-    self.number_of_rays=len(np_asteroid_stl.vectors)
+    self.number_of_rays=len(self.np_asteroid_stl.vectors)
     self.centroids=self.generate_centroids()
   # def ray_emitter(self, location_of_sun, location_of_asteroid):
     #plane of asteroid is an array of length 4: [a,b,c,d]
@@ -35,13 +35,15 @@ class Rays:
     # return unit_vector
   def generate_centroids(self):
     temp=[0,0,0]
+    temp2=[]
     for i in range(self.number_of_rays):
         for j in range(3):
-            temp[0]+=np_asteroid_stl.vectors[i][j][0]/3
-            temp[1]+=np_asteroid_stl.vectors[i][j][1]/3
-            temp[2]+=np_asteroid_stl.vectors[i][j][2]/3
-        self.centroids.append(temp)
+            temp[0]+=self.np_asteroid_stl.vectors[i][j][0]/3
+            temp[1]+=self.np_asteroid_stl.vectors[i][j][1]/3
+            temp[2]+=self.np_asteroid_stl.vectors[i][j][2]/3
+        temp2.append(temp)
         temp=[0,0,0]
+    return temp2
   def unit(self, vector):
     vector=numpy.array(vector)
     return vector/numpy.linalg.norm(vector)
