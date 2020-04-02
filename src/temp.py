@@ -52,6 +52,7 @@ class Temperature:
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
 	
 	def temp(self):
+		print("r: " + str(self.r))
 		#initialize
 		final_temps = [[0 for k in range(self.facets)] for i in range(self.time_steps)] #timesteps by facets
 		temp = [[0 for k in range(self.depth_steps)] for i in range(self.facets)] #facet by depth
@@ -59,14 +60,14 @@ class Temperature:
 		#for calculating accuracy
 		surface_temp = [0 for j in range(2*self.time_steps)] #temp of top depth for each time for one facet
 		#time = 0
-
+		
+		for j in tqdm(range(self.time_steps)):
+			self.shadow.append(self.thermalmap_obj.shadowing())
+			self.thermalmap_obj.rotation(self.time_steps)
+				
 		#for facets
 		for facet_num in range(self.facets):
-			#initialize temperatures
-			for j in tqdm(range(self.time_steps)):
-				self.shadow.append(self.thermalmap_obj.shadowing())
-				self.thermalmap_obj.rotation(self.time_steps)
-					
+			#initialize temperatures	
 			j = 0 #time
 			temp_temporary = self.setTemp(facet_num)
 			temp[facet_num] = temp_temporary[:]
