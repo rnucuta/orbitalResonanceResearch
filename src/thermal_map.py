@@ -55,7 +55,7 @@ class ThermalMap:
 
   def rotation(self,timesteps):
     v = [-0.0059690746,-0.0163998975,-0.9998476952]
-    self.rays_obj.np_asteroid_stl.rotate(v,math.radians(360/timesteps))
+    self.rays_obj.np_asteroid_stl = self.rays_obj.np_asteroid_stl.rotate(v,math.radians(360/timesteps))
 
   def phi(self, timesteps):
     position = [-0.3556267774642670,2.273733806435090,1.324572872885377]
