@@ -49,7 +49,7 @@ class Temperature:
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
-
+	
 	def temp(self):
 		#initialize
 		final_temps = [[0 for k in range(self.facets)] for i in range(self.time_steps)] #timesteps by facets
@@ -105,9 +105,13 @@ class Temperature:
 				final_temps[time][facet_num] = temp[facet_num][0]
 				#change time
 				#print(j)
-				if j < self.time_steps:
+				if j < self.time_steps-1:
 					self.thermalmap_obj.rotation(self.time_steps)
 					self.shadow.append(self.thermalmap_obj.shadowing())
+				
+				if j == self.time_steps - 1:
+					self.thermalmap_obj.rotation(self.time_steps)
+					
 				j += 1
 			# print(str(facet_num) + ": hey")
 		
@@ -134,7 +138,7 @@ class Temperature:
 		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
 		for j in range(self.time_steps):
-			if j in self.shadow:
+			if facet_num in self.shadow[j]:
 				shade = 1
 			else:
 				shade = 0
@@ -160,7 +164,7 @@ class Temperature:
 	def solveExternalBC(self, facet_num, j, temp):
 		integer = floor(j/(self.time_steps))
 		j = j-integer*self.time_steps
-		if j in self.shadow:
+		if facet_num in self.shadow[j]:
 			shade = 1
 		else:
 			shade = 0
