@@ -200,7 +200,7 @@ class Temperature:
 		#print(Tbelow)
 
 		#final = Tdepth + (1 / (4 * pi)) * (self.dt / ((self.dz)**(2))) * (Tbelow - (2 * Tdepth) + Tabove)
-		final = Tbelow - (2 * Tdepth) + Tabove
+		final = self.dt / ((self.dz)**(2))
 		# if final < 0:
 		# 	final = 0
 
