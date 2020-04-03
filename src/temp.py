@@ -198,9 +198,13 @@ class Temperature:
 		#print("depth " + str(Tdepth))
 		Tbelow = temp[depth + 1]
 		#print(Tbelow)
-
-		#final = Tdepth + (1 / (4 * pi)) * (self.dt / ((self.dz)**(2))) * (Tbelow - (2 * Tdepth) + Tabove)
-		final = self.dt / ((self.dz)**(2))
+		print(pi)
+		print(Tdepth)
+		print(self.dt)
+		print(self.dz)
+		print(Tbelow)
+		print(Tabove)
+		final = Tdepth + (1 / (4 * pi)) * (self.dt / ((self.dz)**(2))) * (Tbelow - (2 * Tdepth) + Tabove)
 		# if final < 0:
 		# 	final = 0
 
