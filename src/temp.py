@@ -49,7 +49,9 @@ class Temperature:
 		# print(feta)
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
+		print(self.dz)
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
+		print(self.dt)
 	
 	def temp(self):
 		print("r: " + str(self.r))
@@ -194,7 +196,8 @@ class Temperature:
 		Tbelow = temp[depth + 1]
 		#print(Tbelow)
 
-		final = Tdepth + (1/(4*pi))*(self.dt/(self.dz**2))*(Tbelow - 2*Tdepth + Tabove)
+		#final = Tdepth + (1 / (4 * pi)) * (self.dt / ((self.dz)**(2))) * (Tbelow - (2 * Tdepth) + Tabove)
+		final = 2
 		# if final < 0:
 		# 	final = 0
 
