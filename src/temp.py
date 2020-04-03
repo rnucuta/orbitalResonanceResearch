@@ -136,10 +136,10 @@ class Temperature:
 						
 	#calculates Tmean for a facet
 	def Tmean(self, facet_num):
-	    print("getting Tmean") 
 		Fsun = self.Wsun/(self.r**2)
 		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
+		print("Getting Tmean")
 		for j in tqdm(range(self.time_steps)):
 			if facet_num in self.shadow[j]:
 				shade = 1
