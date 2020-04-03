@@ -135,11 +135,12 @@ class Temperature:
 		# 	print(i)
 						
 	#calculates Tmean for a facet
-	def Tmean(self, facet_num): 
+	def Tmean(self, facet_num):
+	    print("getting Tmean") 
 		Fsun = self.Wsun/(self.r**2)
 		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
-		for j in range(self.time_steps):
+		for j in tqdm(range(self.time_steps)):
 			if facet_num in self.shadow[j]:
 				shade = 1
 			else:
@@ -153,9 +154,10 @@ class Temperature:
 
 	#assigns an initial temperature to all depth steps for a facet
 	def setTemp(self, facet_num):
+		print("setting time")
 		temperature = [0 for j in range(self.depth_steps)]
 		mean = self.Tmean(facet_num)
-		for i in range(self.depth_steps):
+		for i in tqdm(range(self.depth_steps)):
 			Ti = 1.7*mean#*(exp(-2*pi*i*dz))
 			temperature[i] = Ti
 
@@ -164,6 +166,7 @@ class Temperature:
 
 	#solves external BC, returns temp
 	def solveExternalBC(self, facet_num, j, temp):
+		print("doing EBC")
 		integer = floor(j/(self.time_steps))
 		j = j-integer*self.time_steps
 		if facet_num in self.shadow[j]:
