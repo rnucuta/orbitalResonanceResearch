@@ -44,14 +44,14 @@ class Temperature:
 		#WILL CALL THE ORIENT FUNCTION HERE
 		###
 
-		print("temp2")
+		#print("temp2")
 		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
 		# print(feta)
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
-		print(self.dz)
+		#print(self.dz)
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
-		print(self.dt)
+		#print(self.dt)
 	
 	def temp(self):
 		print("r: " + str(self.r))
@@ -139,7 +139,7 @@ class Temperature:
 		Fsun = self.Wsun/(self.r**2)
 		constant = ((Fsun*(1-self.Ab)/(self.E*self.S))**(1/4))
 		sums = 0
-		print("Getting Tmean")
+		#print("Getting Tmean")
 		for j in tqdm(range(self.time_steps)):
 			if facet_num in self.shadow[j]:
 				shade = 1
@@ -154,11 +154,11 @@ class Temperature:
 
 	#assigns an initial temperature to all depth steps for a facet
 	def setTemp(self, facet_num):
-		print("setting time")
+		#print("setting time")
 		temperature = [0 for j in range(self.depth_steps)]
 		mean = self.Tmean(facet_num)
 		for i in tqdm(range(self.depth_steps)):
-			Ti = 1.7*mean#*(exp(-2*pi*i*dz))
+			Ti = mean#*(exp(-2*pi*i*dz))
 			temperature[i] = Ti
 
 		#print(temperature)
@@ -166,7 +166,7 @@ class Temperature:
 
 	#solves external BC, returns temp
 	def solveExternalBC(self, facet_num, j, temp):
-		print("doing EBC")
+		#print("doing EBC")
 		integer = floor(j/(self.time_steps))
 		j = j-integer*self.time_steps
 		if facet_num in self.shadow[j]:
@@ -185,7 +185,7 @@ class Temperature:
 		#print(solution)
 		for i in solution:
 			if np.isreal(i) and i > 0:
-				#print("real" + str(np.real(i)))
+				print("real: " + str(np.real(i)))
 				return np.real(i)
 
 		# print(solution)
@@ -198,12 +198,12 @@ class Temperature:
 		#print("depth " + str(Tdepth))
 		Tbelow = temp[depth + 1]
 		#print(Tbelow)
-		print(pi)
-		print(Tdepth)
-		print(self.dt)
-		print(self.dz)
-		print(Tbelow)
-		print(Tabove)
+		#print(pi)
+		#print(Tdepth)
+		#print(self.dt)
+		#print(self.dz)
+		#print(Tbelow)
+		#print(Tabove)
 		final = Tdepth + (1 / (4 * pi)) * (self.dt / ((self.dz)**(2))) * (Tbelow - (2 * Tdepth) + Tabove)
 		# if final < 0:
 		# 	final = 0
