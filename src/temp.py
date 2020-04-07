@@ -66,6 +66,12 @@ class Temperature:
 		for j in tqdm(range(self.time_steps)):
 			self.shadow.append(self.thermalmap_obj.shadowing())
 			self.thermalmap_obj.rotation(self.time_steps)
+
+		if len(self.shadow)<400:
+			print("FUCK 400")
+		if [] in self.shadow:
+			print("FUCK []")
+		print(self.shadow)
 				
 		#for facets
 		for facet_num in range(self.facets):
