@@ -8,6 +8,7 @@ yarkovsky_obj=Yarkovsky()
 
 print('Running yarkovskyforce function')
 vector_answer=yarkovsky_obj.yarkovskyforce()
+torque_answer = yarkovsky_obj.yorptorque()
 def save_yark_vector(np_vec):
 	with open('final_yark_vector.txt', 'w') as f:
 		for item in list(np_vec):
@@ -15,6 +16,7 @@ def save_yark_vector(np_vec):
 print("=======================================")
 print("Vector answer: {}".format(vector_answer))
 print("=======================================")
+print(torque_answer)
 save_yark_vector(vector_answer)
 
 end = time.time()

@@ -22,7 +22,6 @@ class Yarkovsky:
 
   def yarkovskyforce(self):
     print("Yarkovsky initiated")
-    ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(self.np_asteroid_stl.vectors[1][2], self.np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
     boltzmann = 5.670374 * (10**(-8))
     speedoflight = 2.998 * (10**8)
@@ -32,6 +31,10 @@ class Yarkovsky:
     for t in range(len(self.therm_map)):
       temporaryforce = np.zeros(3)
       for f in range(len(self.np_asteroid_stl.vectors)):
+        a = self.np_asteroid_stl.vectors[f][1]
+        b = self.np_asteroid_stl.vectors[f][2]
+        c = self.np_asteroid_stl.vectors[f][3]
+        ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a))) / 2
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
       forcelist.append(temporaryforce)
@@ -55,6 +58,7 @@ class Yarkovsky:
     for t in range(len(self.therm_map)):
       temporarytorque = []
       for f in range(len(self.np_asteroid_stl.vectors)):
+        ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a))) / 2
         centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emmissivity * ds / (3*speedoflight))
         facettorque = np.cross(facetforce,(centroid-com))
