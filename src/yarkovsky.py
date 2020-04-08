@@ -12,10 +12,10 @@ class Yarkovsky:
     self.Temperature=None
     if not self.load_temp:
       self.Temperature=Temperature(0.01, 400, 50)
-      with open('./temp_obj.obj', 'w') as f:
+      with open('./temp_obj.obj', 'wb') as f:
         pickle.dump(self.Temperature, f)
     else:
-      with open('./temp_obj.obj', 'r') as f:
+      with open('./temp_obj.obj', 'rb') as f:
         self.Temperature=pickle.load(f)
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
     self.therm_map= self.Temperature.temp()
