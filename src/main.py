@@ -1,3 +1,5 @@
+import time
+start = time.time()
 #IMPORT yarkovsky.py
 from yarkovsky import Yarkovsky
 print('Making Yarkovsky object')
@@ -10,3 +12,6 @@ def save_yark_vector(np_vec):
 		for item in list(np_vec):
 			f.write("%s\n" % item)
 save_yark_vector(vector_answer)
+
+end = time.time()
+print("time: " + str(end-start))
