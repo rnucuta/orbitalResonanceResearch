@@ -40,10 +40,7 @@ class Temperature:
 		print("temp1")
 		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array #UNKNOWN
 
-
-		#####
-		#WILL CALL THE ORIENT FUNCTION HERE
-		###
+		self.shadow_file=True
 
 		#print("temp2")
 		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
@@ -53,6 +50,7 @@ class Temperature:
 		#print(self.dz)
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
 		#print(self.dt)
+
 	
 	def temp(self):
 		print("r: " + str(self.r))
@@ -64,12 +62,17 @@ class Temperature:
 		surface_temp = [0 for j in range(2*self.time_steps)] #temp of top depth for each time for one facet
 		#time = 0
 		
-		for j in tqdm(range(self.time_steps)):
-			self.shadow.append(self.thermalmap_obj.shadowing())
-			self.thermalmap_obj.rotation(self.time_steps)
-		
-		with open('./shadow_data.data', 'wb') as f:
-			pickle.dump(self.shadow, f)
+		if not self.shadow_file:
+			for j in tqdm(range(self.time_steps)):
+				self.shadow.append(self.thermalmap_obj.shadowing())
+				self.thermalmap_obj.rotation(self.time_steps)
+			
+			with open('./shadow_data.data', 'wb') as f:
+				pickle.dump(self.shadow, f)
+
+		else:
+			with open('./shadow_data.data', 'rb') as f:
+					self.shadow=pickle.load(f)
 
 		#for facets
 		for facet_num in range(self.facets):
