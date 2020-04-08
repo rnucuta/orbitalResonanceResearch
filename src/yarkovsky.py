@@ -58,6 +58,9 @@ class Yarkovsky:
     for t in range(len(self.therm_map)):
       temporarytorque = []
       for f in range(len(self.np_asteroid_stl.vectors)):
+        a = self.np_asteroid_stl.vectors[f][1]
+        b = self.np_asteroid_stl.vectors[f][2]
+        c = self.np_asteroid_stl.vectors[f][3]
         ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a))) / 2
         centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emmissivity * ds / (3*speedoflight))
