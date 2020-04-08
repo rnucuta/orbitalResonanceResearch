@@ -187,7 +187,7 @@ class Temperature:
 		solution  = np.roots(coeff)
 		#print(solution)
 		for i in solution:
-			if np.isreal(i) and i > 0:
+			if np.isreal(i) and i >= 0:
 				# print("real: " + str(np.real(i)))
 				return np.real(i)
 
