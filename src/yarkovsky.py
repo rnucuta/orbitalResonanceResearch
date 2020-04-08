@@ -3,6 +3,7 @@ from temp import Temperature
 import numpy as np
 import temp
 import math
+import pickle
 
 class Yarkovsky:
   def __init__(self):

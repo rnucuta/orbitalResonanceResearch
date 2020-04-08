@@ -11,6 +11,9 @@ def save_yark_vector(np_vec):
 	with open('final_yark_vector.txt', 'w') as f:
 		for item in list(np_vec):
 			f.write("%s\n" % item)
+print("=======================================")
+print("Vector answer: {}".format(vector_answer))
+print("=======================================")
 save_yark_vector(vector_answer)
 
 end = time.time()
