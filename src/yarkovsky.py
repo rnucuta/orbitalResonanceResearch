@@ -24,7 +24,7 @@ class Yarkovsky:
     print("Yarkovsky initiated")
     ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(self.np_asteroid_stl.vectors[1][2], self.np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
-    boltzmann = 1.38064852 * (10**(-23))
+    boltzmann = 5.670374 * (10**(-8))
     speedoflight = 2.998 * (10**8)
     forcelist = []
     temporaryforce = None
