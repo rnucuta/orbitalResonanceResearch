@@ -40,7 +40,7 @@ class Temperature:
 		print("temp1")
 		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array #UNKNOWN
 
-		self.shadow_file=True
+		self.shadow_file=False
 
 		#print("temp2")
 		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
