@@ -10,15 +10,18 @@ class Yarkovsky:
     print("Yark init")
     self.load_temp=False
     self.Temperature=None
+    self.therm_map=None
     if not self.load_temp:
       self.Temperature=Temperature(0.01, 400, 50)
+      self.therm_map= self.Temperature.temp()
       with open('./temp_obj.obj', 'wb') as f:
         pickle.dump(self.Temperature, f)
     else:
       with open('./temp_obj.obj', 'rb') as f:
         self.Temperature=pickle.load(f)
+      self.therm_map=self.Temperature.final_temps
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
-    self.therm_map= self.Temperature.temp()
+    
 
   def yarkovskyforce(self):
     print("Yarkovsky initiated")

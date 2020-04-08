@@ -49,6 +49,7 @@ class Temperature:
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
 		#print(self.dz)
 		self.dt = 1/self.time_steps #change in t #0-time_steps-1
+		self.final_temps=None
 		#print(self.dt)
 
 	
@@ -127,6 +128,9 @@ class Temperature:
 		# for i in final_temps:
 			#print(i)
 		print(final_temps[0])
+		with open('./final_temps.data', 'wb') as f:
+			pickle.dump(final_temps, f)
+		self.final_temps=final_temps
 		return final_temps
 
 
