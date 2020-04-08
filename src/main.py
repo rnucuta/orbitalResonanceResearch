@@ -1,4 +1,5 @@
 import time
+import datetime
 start = time.time()
 #IMPORT yarkovsky.py
 from yarkovsky import Yarkovsky
@@ -17,4 +18,4 @@ print("=======================================")
 save_yark_vector(vector_answer)
 
 end = time.time()
-print("time: " + str(end-start))
+print("time: " + str(datetime.timedelta(seconds=end-start)))
