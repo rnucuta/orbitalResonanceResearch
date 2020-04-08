@@ -9,6 +9,7 @@ from math import *
 #from stl_editor import angles, facetNumber, shadows
 from thermal_map import ThermalMap
 from tqdm import tqdm
+import pickle
 
 #constants
 class Temperature:
