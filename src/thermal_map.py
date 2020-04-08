@@ -43,8 +43,6 @@ class ThermalMap:
         non_shadowed_array_indices.append(ray_temp[distances.index(min(distances))])
       except:
         pass
-    if non_shadowed_array_indices==[]:
-      print("Shadow empty!!")
     return non_shadowed_array_indices
 #p1,p2,p3 triangle; q1,q2 points on the line far away in both direction
     #If SignedVolume(q1,p1,p2,p3) and SignedVolume(q2,p1,p2,p3) have different signs AND SignedVolume(q1,q2,p1,p2), SignedVolume(q1,q2,p2,p3) and SignedVolume(q1,q2,p3,p1) have the same sign, then there is an intersection
@@ -73,7 +71,7 @@ class ThermalMap:
     for f in tqdm(range(len(self.rays_obj.np_asteroid_stl.vectors))):
       philist = []
       for t in range(timesteps):
-        philist.append(np.divide(np.dot(position,self.rays_obj.np_asteroid_stl.normals[f]),(np.linalg.norm(position)*np.linalg.norm(self.rays_obj.np_asteroid_stl.normals[f]))))
+        philist.append(abs(np.divide(np.dot(position,self.rays_obj.np_asteroid_stl.normals[f]),(np.linalg.norm(position)*np.linalg.norm(self.rays_obj.np_asteroid_stl.normals[f])))))
         self.rotation(timesteps)
       facetlist.append(philist)
     return facetlist

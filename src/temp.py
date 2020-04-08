@@ -66,7 +66,10 @@ class Temperature:
 		for j in tqdm(range(self.time_steps)):
 			self.shadow.append(self.thermalmap_obj.shadowing())
 			self.thermalmap_obj.rotation(self.time_steps)
-				
+		
+		with open('shadow_data.txt', 'w') as f:
+    		pickle.dump(self.shadow, f)
+
 		#for facets
 		for facet_num in range(self.facets):
 			#initialize temperatures	
@@ -185,7 +188,7 @@ class Temperature:
 		#print(solution)
 		for i in solution:
 			if np.isreal(i) and i > 0:
-				print("real: " + str(np.real(i)))
+				# print("real: " + str(np.real(i)))
 				return np.real(i)
 
 		# print(solution)
