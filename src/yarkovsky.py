@@ -7,7 +7,15 @@ import math
 class Yarkovsky:
   def __init__(self):
     print("Yark init")
-    self.Temperature=Temperature(0.01, 400, 50)
+    self.load_temp=False
+    self.Temperature=None
+    if not self.load_temp:
+      self.Temperature=Temperature(0.01, 400, 50)
+      with open('./temp_obj.data', 'wb') as f:
+        pickle.dump(self.Temperature, f)
+    else:
+      with open('./temp_obj.data', 'rb') as f:
+        self.Temperature=pickle.load(f)
     self.np_asteroid_stl=self.Temperature.thermalmap_obj.rays_obj.np_asteroid_stl
     self.therm_map= self.Temperature.temp()
 

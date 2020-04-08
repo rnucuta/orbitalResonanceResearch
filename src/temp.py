@@ -72,7 +72,7 @@ class Temperature:
 
 		else:
 			with open('./shadow_data.data', 'rb') as f:
-					self.shadow=pickle.load(f)
+				self.shadow=pickle.load(f)
 
 		#for facets
 		for facet_num in range(self.facets):
