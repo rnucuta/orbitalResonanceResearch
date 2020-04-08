@@ -21,7 +21,7 @@ class Yarkovsky:
     temporaryforce = None
     print("Yarkovsky variables instantiated")
     for t in range(len(self.therm_map)):
-      temporaryforce = []
+      temporaryforce = np.zeros(3)
       for f in range(len(self.np_asteroid_stl.vectors)):
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
