@@ -69,7 +69,7 @@ class Temperature:
 			self.thermalmap_obj.rotation(self.time_steps)
 		
 		with open('shadow_data.txt', 'w') as f:
-    		pickle.dump(self.shadow, f)
+			pickle.dump(self.shadow, f)
 
 		#for facets
 		for facet_num in range(self.facets):
