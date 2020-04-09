@@ -1,8 +1,7 @@
 import time
 import datetime
-start = time.time()
-#IMPORT yarkovsky.py
 from yarkovsky import Yarkovsky
+start = time.time()
 print('Making Yarkovsky object')
 yarkovsky_obj=Yarkovsky()
 

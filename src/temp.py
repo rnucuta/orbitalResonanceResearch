@@ -6,12 +6,10 @@ from mpl_toolkits import mplot3d
 from sympy import solve
 from sympy import Symbol
 from math import *
-#from stl_editor import angles, facetNumber, shadows
 from thermal_map import ThermalMap
 from tqdm import tqdm
 import pickle
 
-#constants
 class Temperature:
 	#print(feta[0][3])
 	def __init__(self, Tacc, time_steps, depth_steps):
@@ -235,32 +233,3 @@ class Temperature:
 			return True
 		
 		return False
-
-	# def RGB(self, T):
-	# 	Rt = R(T)
-	# 	Gt = G(T)
-	# 	Bt = B(T)
-
-	# 	return str(Rt) + str(Gt) + str(Bt)
-
-	# def R(self,T):
-	# 	return hex(255)
-
-	# def G(self,T):
-	# 	G = (255/105)*(T-215)
-
-	# 	if G < 0:
-	# 		G = 0
-
-	# 	return hex(floor(G))
-
-	# def B(self,T):
-	# 	B = (255/1225)*((T-285)**2)
-
-	# 	if T-285 < 0:
-	# 		B = 0;
-
-	# 	return hex(floor(B))
-	#te()
-	# for i in range(facets):
-	# 	Tmean(i)
