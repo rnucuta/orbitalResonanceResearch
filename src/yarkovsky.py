@@ -8,7 +8,7 @@ import pickle
 class Yarkovsky:
   def __init__(self):
     print("Yark init")
-    self.load_temp=True
+    self.load_temp=False
     self.Temperature=None
     self.therm_map=None
     if not self.load_temp:
