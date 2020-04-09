@@ -8,7 +8,7 @@ import pickle
 class Yarkovsky:
   def __init__(self):
     print("Yark init")
-    self.load_temp=False
+    self.load_temp=True
     self.Temperature=None
     self.therm_map=None
     if not self.load_temp:
@@ -34,9 +34,9 @@ class Yarkovsky:
     for t in range(len(self.therm_map)):
       temporaryforce = np.zeros(3)
       for f in range(len(self.np_asteroid_stl.vectors)):
-        a = self.np_asteroid_stl.vectors[f][1]
-        b = self.np_asteroid_stl.vectors[f][2]
-        c = self.np_asteroid_stl.vectors[f][3]
+        a = self.np_asteroid_stl.vectors[f][0]
+        b = self.np_asteroid_stl.vectors[f][1]
+        c = self.np_asteroid_stl.vectors[f][2]
         ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a))) / 2
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
