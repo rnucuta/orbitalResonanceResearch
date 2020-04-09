@@ -1,4 +1,3 @@
-#the below line of code won't work. Wills code calls the thermal map code, which contains the stl file. You will need to import wills code, then call this file from raymo's thermal map class
 from temp import Temperature
 import numpy as np
 import temp
