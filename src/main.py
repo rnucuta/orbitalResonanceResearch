@@ -14,16 +14,17 @@ def save_yark_vector(np_vec, np_vec2):
 		f.write("Yarkovsky vector:\n")
 		for item in list(np_vec):
 			f.write("%s\n" % item)
-		f.write("YORP vector:\n")
 		f.write("\n")
+		f.write("YORP vector:\n")
 		for item in list(np_vec2):
 			f.write("%s\n" % item)
-print("================================================================")
+print()
+print("====================================================")
 print("Vector answer: {}".format(vector_answer))
-print("================================================================")
+print("====================================================")
 print("Torque answer: {}".format(torque_answer))
-print("================================================================")
+print("====================================================")
 save_yark_vector(vector_answer, torque_answer)
 
 end = time.time()
-print("time: " + str(datetime.timedelta(seconds=end-start)))
+print("Runtime: " + str(datetime.timedelta(seconds=end-start)))
