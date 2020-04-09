@@ -65,7 +65,7 @@ class Yarkovsky:
         a = self.np_asteroid_stl.vectors[f][0]
         b = self.np_asteroid_stl.vectors[f][1]
         c = self.np_asteroid_stl.vectors[f][2]
-        ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a))) / 2
+        ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a)))*500000
         centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)+position
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         facettorque = np.cross(facetforce,(centroid-com))
