@@ -50,10 +50,9 @@ class Yarkovsky:
 
   def yorptorque(self):
     print("YORP Torque initiated")
-    position=np.array([-0.3556267774642670,2.273733806435090,1.324572872885377])*149598073
     torquelist = []
     temporarytorque = None
-    com = self.np_asteroid_stl.get_mass_properties()[1]+position
+    com = self.np_asteroid_stl.get_mass_properties()[1]
     ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(self.np_asteroid_stl.vectors[1][2],self.np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
     boltzmann = 5.670374 * (10**(-8))
@@ -66,7 +65,7 @@ class Yarkovsky:
         b = self.np_asteroid_stl.vectors[f][1]
         c = self.np_asteroid_stl.vectors[f][2]
         ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a)))*500000
-        centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)+position
+        centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         facettorque = np.cross(facetforce,(centroid-com))
         temporarytorque = np.add(temporarytorque,facettorque)
