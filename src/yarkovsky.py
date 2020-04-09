@@ -56,7 +56,7 @@ class Yarkovsky:
     com = self.np_asteroid_stl.get_mass_properties()[1]+position
     ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(self.np_asteroid_stl.vectors[1][2],self.np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
-    boltzmann = 1.38064852 * (10**(-23))
+    boltzmann = 5.670374 * (10**(-8))
     speedoflight = 2.998 * (10**8)
     print("YORP variables instantiated")
     for t in range(len(self.therm_map)):
