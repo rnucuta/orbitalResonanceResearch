@@ -36,8 +36,9 @@ class Yarkovsky:
         a = self.np_asteroid_stl.vectors[f][0]
         b = self.np_asteroid_stl.vectors[f][1]
         c = self.np_asteroid_stl.vectors[f][2]
-        ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a)))*500000
-        facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
+        ds = np.linalg.norm(np.cross(np.subtract(b,a),np.subtract(c,a)))*500000
+        normal = np.divide(self.np_asteroid_stl.normals[f],np.linalg.norm(self.np_asteroid_stl.normals[f]))
+        facetforce = np.multiply(normal,(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
       forcelist.append(temporaryforce)
     finalforce = [0,0,0]
@@ -51,8 +52,6 @@ class Yarkovsky:
     print("YORP Torque initiated")
     torquelist = []
     temporarytorque = None
-    com = self.np_asteroid_stl.get_mass_properties()[1]
-    ds = math.sqrt(3) * (1000 * np.linalg.norm(np.subtract(self.np_asteroid_stl.vectors[1][2],self.np_asteroid_stl.vectors[1][1])))**(2) / 4
     emissivity = 0.73
     boltzmann = 5.670374 * (10**(-8))
     speedoflight = 2.998 * (10**8)
@@ -64,9 +63,10 @@ class Yarkovsky:
         b = self.np_asteroid_stl.vectors[f][1]
         c = self.np_asteroid_stl.vectors[f][2]
         ds = abs(np.cross(np.subtract(b,a),np.subtract(c,a)))*500000
+        normal = np.divide(self.np_asteroid_stl.normals[f],np.linalg.norm(self.np_asteroid_stl.normals[f]))
         centroid = np.divide(np.add(np.add(self.np_asteroid_stl.v0[f],self.np_asteroid_stl.v1[f]),self.np_asteroid_stl.v2[f]),3)
         facetforce = np.multiply(self.np_asteroid_stl.normals[f],(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
-        facettorque = np.cross(facetforce,(centroid-com))
+        facettorque = np.cross(facetforce,centroid)
         temporarytorque = np.add(temporarytorque,facettorque)
       torquelist.append(temporarytorque)
     finaltorque = [0,0,0]
