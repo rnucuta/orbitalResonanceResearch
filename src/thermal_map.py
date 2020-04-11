@@ -7,12 +7,12 @@ class ThermalMap:
   #thermal snapshot per time step
   def __init__(self):
     print("thermal map class init")
-    self.position = [1.860106968291837,-0.8013668962828921,-0.3477386314104410]
+    self.position = [-1.255813121388781,-1.818098511192893,0.00003386489777007203]
     self.rays_obj=Rays()
     self.copy_vectors=self.rays_obj.np_asteroid_stl.vectors
     self.normals=None
   def eliminate_bad_facets(self):
-    distance = [1.860106968291837,-0.8013668962828921,-0.3477386314104410]
+    distance = [-1.255813121388781,-1.818098511192893,0.00003386489777007203]
     indices_to_remove=[]
     for i in range(self.rays_obj.number_of_rays):
       if np.dot(distance, self.rays_obj.np_asteroid_stl.normals[i])>0:
@@ -21,7 +21,7 @@ class ThermalMap:
   
   #shadowing code
   def shadowing(self):
-    distance=np.array([1.860106968291837,-0.8013668962828921,-0.3477386314104410])*149598073
+    distance=np.array([-1.255813121388781,-1.818098511192893,0.00003386489777007203])*149598073
     indices_to_remove=self.eliminate_bad_facets()
     rays_generated=self.rays_obj.generate_all_rays()
     non_shadowed_array_indices=[]
@@ -65,7 +65,7 @@ class ThermalMap:
     self.rays_obj.np_asteroid_stl.update_normals()
 
   def phi(self, timesteps):
-    position = [1.860106968291837,-0.8013668962828921,-0.3477386314104410]
+    position = [-1.255813121388781,-1.818098511192893,0.00003386489777007203]
     self.orient()
     facetlist = []
     for f in tqdm(range(len(self.rays_obj.np_asteroid_stl.vectors))):
