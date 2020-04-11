@@ -26,7 +26,7 @@ class Rays:
     
   def generate_all_rays(self):
     #2-d array of length number of centroids, and stores the parametric eqn of the line for the centroids: [[a,b,c,x1,y1,z1]...]
-    position=numpy.array([-1.255813121388781,-1.818098511192893,0.00003386489777007203])*149598073
+    position=numpy.array([-0.5304365993252850,2.593585584222165,0.3341370462881209])*149598073
     self.centroids=self.generate_centroids()+position
     for i in range(self.number_of_rays):
         n=numpy.concatenate((self.unit(self.centroids[i]),self.centroids[i]), axis=0)
