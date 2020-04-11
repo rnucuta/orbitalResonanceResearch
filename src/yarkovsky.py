@@ -33,9 +33,9 @@ class Yarkovsky:
     for t in range(len(self.therm_map)):
       temporaryforce = np.zeros(3)
       for f in range(len(self.np_asteroid_stl.vectors)):
-        a = self.np_asteroid_stl.vectors[f][0]
-        b = self.np_asteroid_stl.vectors[f][1]
-        c = self.np_asteroid_stl.vectors[f][2]
+        a = self.np_asteroid_stl.v0[f]
+        b = self.np_asteroid_stl.v1[f]
+        c = self.np_asteroid_stl.v2[f]
         ds = np.linalg.norm(np.cross(np.subtract(b,a),np.subtract(c,a)))*500000
         normal = np.divide(self.np_asteroid_stl.normals[f],np.linalg.norm(self.np_asteroid_stl.normals[f]))
         facetforce = np.multiply(normal,(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
