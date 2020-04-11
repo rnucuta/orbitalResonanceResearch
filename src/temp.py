@@ -83,18 +83,14 @@ class Temperature:
 			#until accurate repeat facet
 			while j < 10*self.time_steps or not self.isAccurate(j, surface_temp, facet_num):
 				integer = floor(j/(2*self.time_steps))
-				time = j - self.time_steps*floor(j/self.time_steps)
+				time = j%self.time_steps
 				#test
 				# if j > time_steps:
 				# 	break
 				#test
 
 				#storing previous temps
-				if j < self.time_steps:
-					surface_temp[j] = temp[facet_num][0]
-				else:
-					#integer = floor(j/(2*time_steps))
-					surface_temp[j-integer*2*self.time_steps] = temp[facet_num][0]
+				surface_temp[j%2*self.time_steps] = temp[facet_num][0]
 
 				#for depth steps
 				for i in range(self.depth_steps):
