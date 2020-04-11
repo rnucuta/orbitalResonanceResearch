@@ -12,7 +12,7 @@ class ThermalMap:
     self.copy_vectors=self.rays_obj.np_asteroid_stl.vectors
     self.normals=None
   def eliminate_bad_facets(self):
-  	distance = [1.860106968291837,-0.8013668962828921,-0.3477386314104410]
+    distance = [1.860106968291837,-0.8013668962828921,-0.3477386314104410]
     indices_to_remove=[]
     for i in range(self.rays_obj.number_of_rays):
       if np.dot(distance, self.rays_obj.np_asteroid_stl.normals[i])>0:
