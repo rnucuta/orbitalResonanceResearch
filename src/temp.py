@@ -38,7 +38,7 @@ class Temperature:
 		print("temp1")
 		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array #UNKNOWN
 
-		self.shadow_file=False
+		self.shadow_file=True
 
 		#print("temp2")
 		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
@@ -82,7 +82,6 @@ class Temperature:
 			
 			#until accurate repeat facet
 			while j < 10*self.time_steps or not self.isAccurate(j, surface_temp, facet_num):
-				integer = floor(j/(2*self.time_steps))
 				time = j%self.time_steps
 				#test
 				# if j > time_steps:
@@ -90,13 +89,13 @@ class Temperature:
 				#test
 
 				#storing previous temps
-				surface_temp[j%2*self.time_steps] = temp[facet_num][0]
+				surface_temp[j%(2*self.time_steps)] = temp[facet_num][0]
 
 				#for depth steps
 				for i in range(self.depth_steps):
 					#top
 					if i == 0:
-						temp_temporary[i] = self.solveExternalBC(facet_num, j, temp_temporary)
+						temp_temporary[i] = self.solveExternalBC(facet_num, j, temp[facet_num])
 						continue
 
 					#bottom
@@ -106,19 +105,15 @@ class Temperature:
 						continue
 
 					#everything else
-					temp_temporary[i] = self.solveDepthTemp(facet_num, i, temp_temporary)
+					temp_temporary[i] = self.solveDepthTemp(facet_num, i, temp[facet_num])
 
 				#set temps
 				temp[facet_num] = temp_temporary[:]
 
-				
 				final_temps[time][facet_num] = temp[facet_num][0]
 				#change time
-				#print(j)
-					
 				j += 1
-			# print(str(facet_num) + ": hey")
-		
+			
 		# for i in final_temps:
 			#print(i)
 		print(final_temps[0])
@@ -172,8 +167,7 @@ class Temperature:
 	#solves external BC, returns temp
 	def solveExternalBC(self, facet_num, j, temp):
 		#print("doing EBC")
-		integer = floor(j/(self.time_steps))
-		j = j-integer*self.time_steps
+		j = j%self.time_steps
 		if facet_num in self.shadow[j]:
 			shade = 1
 		else:
@@ -218,9 +212,8 @@ class Temperature:
 	#boolean - returns true if accurate enough
 	#Consider using the energy method
 	def isAccurate(self, j, surface_temp, facet_num):
-		integer = floor(j/(self.time_steps))
 		i = j
-		j = j-integer*self.time_steps
+		j = j%self.time_steps
 		diff = abs(surface_temp[j+self.time_steps] - surface_temp[j])
 		#print(diff)
 		if diff <= self.Tacc:
