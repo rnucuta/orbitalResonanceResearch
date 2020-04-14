@@ -7,7 +7,7 @@ class Rays:
     self.rays_array=[]
     self.np_asteroid_stl = mesh.Mesh.from_file('Steins1500.stl')
     self.number_of_rays=len(self.np_asteroid_stl.vectors)
-
+    self.position=[-0.5304365993252850,2.593585584222165,0.3341370462881209]
   def generate_centroids(self):
     temp=[0,0,0]
     temp2=[]
@@ -26,7 +26,7 @@ class Rays:
     
   def generate_all_rays(self):
     #2-d array of length number of centroids, and stores the parametric eqn of the line for the centroids: [[a,b,c,x1,y1,z1]...]
-    position=numpy.array([-0.5304365993252850,2.593585584222165,0.3341370462881209])*149598073
+    position=numpy.array(self.position)*149598073
     self.centroids=self.generate_centroids()+position
     for i in range(self.number_of_rays):
         n=numpy.concatenate((self.unit(self.centroids[i]),self.centroids[i]), axis=0)

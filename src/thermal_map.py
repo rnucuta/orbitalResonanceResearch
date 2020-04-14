@@ -8,12 +8,13 @@ class ThermalMap:
   #thermal snapshot per time step
   def __init__(self):
     print("thermal map class init")
-    self.position = [-0.5304365993252850,2.593585584222165,0.3341370462881209]
     self.rays_obj=Rays()
+    self.position = self.rays_obj.position
     self.copy_vectors=self.rays_obj.np_asteroid_stl.vectors
     self.normals=None
+    self.v=[-0.0059690746,-0.0163998975,-0.9998476952]
   def eliminate_bad_facets(self):
-    distance = [-0.5304365993252850,2.593585584222165,0.3341370462881209]
+    distance = self.position
     indices_to_remove=[]
     for i in range(self.rays_obj.number_of_rays):
       if np.dot(distance, self.rays_obj.np_asteroid_stl.normals[i])>0:
@@ -22,7 +23,7 @@ class ThermalMap:
   
   #shadowing code
   def shadowing(self):
-    distance=np.array([-0.5304365993252850,2.593585584222165,0.3341370462881209])*149598073
+    distance=np.array(self.position)*149598073
     indices_to_remove=self.eliminate_bad_facets()
     rays_generated=self.rays_obj.generate_all_rays()
     non_shadowed_array_indices=[]
@@ -54,20 +55,19 @@ class ThermalMap:
     pass
 
   def orient(self):
-    v = [-0.0059690746,-0.0163998975,-0.9998476952]
+    v = self.v
     itheta = math.acos(0.9998476952)
     axis = np.cross(v,[0,0,-1])
     self.rays_obj.np_asteroid_stl.rotate(axis,itheta)
     self.rays_obj.np_asteroid_stl.update_normals()
 
   def rotation(self,timesteps):
-    v = [0.0059690746,0.0163998975,0.9998476952]
+    v = self.v
     self.rays_obj.np_asteroid_stl.rotate(v,math.radians(360/timesteps))
     self.rays_obj.np_asteroid_stl.update_normals()
 
   def phi(self, timesteps):
-    position = [-0.5304365993252850,2.593585584222165,0.3341370462881209]
-    lenpos = np.linalg.norm(position)
+    lenpos = np.linalg.norm(self.position)
     self.orient()
     facetlist = []
     for f in tqdm(range(len(self.rays_obj.np_asteroid_stl.vectors))):
@@ -75,7 +75,7 @@ class ThermalMap:
       n = self.rays_obj.np_asteroid_stl.normals[f]
       lennorm = np.linalg.norm(n)
       for t in range(timesteps):
-        philist.append(-np.dot(position,n) / (lenpos * lennorm))
+        philist.append(-np.dot(self.position,n) / (lenpos * lennorm))
         self.rotation(timesteps)
       facetlist.append(philist)
     return facetlist
