@@ -55,8 +55,8 @@ class ThermalMap:
 
   def orient(self):
     v = [-0.0059690746,-0.0163998975,-0.9998476952]
-    itheta = math.acos(0.9998476952)
-    axis = np.cross(v,[0,0,-1])
+    itheta = math.acos(-0.9998476952)
+    axis = np.cross(v,[0,0,1])
     self.rays_obj.np_asteroid_stl.rotate(axis,itheta)
     self.rays_obj.np_asteroid_stl.update_normals()
 
@@ -71,10 +71,11 @@ class ThermalMap:
     facetlist = []
     for f in tqdm(range(len(self.rays_obj.np_asteroid_stl.vectors))):
       philist = []
-      n = self.rays_obj.np_asteroid_stl.normals[f]
-      lennorm = np.linalg.norm(n)
       for t in range(timesteps):
-        philist.append(-np.dot(self.position,n) / (lenpos * lennorm))
-        self.rotation(timesteps)
+      	n = self.rays_obj.np_asteroid_stl.normals[f]
+      	lennorm = np.linalg.norm(n)
+      	philist.append(-np.dot(self.position,n)/(lenpos*lennorm))
+      	self.rotation(timesteps)
       facetlist.append(philist)
     return facetlist
+    print(facetlist)
