@@ -22,6 +22,17 @@ import pickle
 #from stl_editor import angles, shadows
 
 def main():
+	#initialize
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection='3d')
+	ax.set_xlim3d(-100, 100)
+	ax.set_ylim3d(-100, 100)
+	ax.set_zlim3d(-100, 100)
+	file_name = '207tri_sphere.stl'
+	file_length = 206
+	plotter = pv.Plotter()
+	sphere_mesh = pv.read(file_name)
+
 
 	#shadow
 	with open('./shadow_data.data', 'rb') as f:
@@ -37,7 +48,7 @@ def main():
 	time = 0
 	mini = min(final_temps[time])
 	maxi = max(final_temps[time])
-	for i in range(206):
+	for i in range(file_length):
 		T = final_temps[time][i]
 		value = RGB(T, mini, maxi)
 		hexes.append(value)
@@ -46,16 +57,6 @@ def main():
 
 
 	#plotting
-	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	ax.set_xlim3d(-100, 100)
-	ax.set_ylim3d(-100, 100)
-	ax.set_zlim3d(-100, 100)
-	file_name = '207tri_sphere.stl'
-	plotter = pv.Plotter()
-	sphere_mesh = pv.read(file_name)
-
-	
 	x = []
 	y = []
 	z = []
@@ -65,7 +66,7 @@ def main():
 
 	faces = []
 	values = sphere_mesh.faces
-	for i in range(206):
+	for i in range(file_length):
 		if i in shadow[0] or True:
 			face = []
 			index = 1
