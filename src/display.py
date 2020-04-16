@@ -25,13 +25,12 @@ def main():
 	#initialize
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-	ax.set_xlim3d(-100, 100)
-	ax.set_ylim3d(-100, 100)
-	ax.set_zlim3d(-100, 100)
+	ax.set_xlim3d(-4, 4)
+	ax.set_ylim3d(-4, 4)
+	ax.set_zlim3d(-4, 4)
 	file_name = 'Steins350.stl'
 	plotter = pv.Plotter()
 	sphere_mesh = pv.read(file_name)
-
 
 	#shadow
 	with open('./shadow_data.data', 'rb') as f:
@@ -42,13 +41,26 @@ def main():
 		Temperature = pickle.load(f)
 	final_temps = Temperature.final_temps
 	file_length = len(final_temps[0])
+
+	#angle
+	angle = Temperature.thermalmap_obj.phi(400)
+	angles = [[0 for k in range(file_length)] for i in range(400)]
+	#facet
+	for i in range(len(angle)):
+		#time
+		for j in range(len(angle[0])):
+			angles[j][i] = angle[i][j]
+
 	#color
 	hexes = []
 	time = 0
-	mini = min(final_temps[time])
-	maxi = max(final_temps[time])
+	# mini = min(final_temps[time])
+	# maxi = max(final_temps[time])
+	mini = min(angles[time])
+	maxi = max(angles[time])
 	for i in range(file_length):
-		T = final_temps[time][i]
+		#T = final_temps[time][i]
+		T = abs(angles[time][i])
 		value = RGB(T, mini, maxi)
 		hexes.append(value)
 
@@ -66,7 +78,7 @@ def main():
 	faces = []
 	values = sphere_mesh.faces
 	for i in range(file_length):
-		if i in shadow[0] or True:
+		if i in shadow[0]:
 			face = []
 			index = 1
 			for j in range(3):
@@ -83,7 +95,7 @@ def main():
 			y.append(vertices[i[j]][1])
 			z.append(vertices[i[j]][2])
 		verts = [list(zip(x, y, z))]
-		ax.add_collection3d(Poly3DCollection(verts, hexes))
+		ax.add_collection3d(Poly3DCollection(verts, color = hexes[index]))
 		x = []
 		y = []
 		z = []

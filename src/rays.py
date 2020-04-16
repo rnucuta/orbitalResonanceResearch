@@ -5,7 +5,7 @@ class Rays:
   def __init__(self):
     print("rays class init")
     self.rays_array=[]
-    self.np_asteroid_stl = mesh.Mesh.from_file('207tri_sphere.stl')
+    self.np_asteroid_stl = mesh.Mesh.from_file('Steins350.stl')
     self.number_of_rays=len(self.np_asteroid_stl.vectors)
     self.position=[-0.5304365993252850,2.593585584222165,0.3341370462881209]
   def generate_centroids(self):
