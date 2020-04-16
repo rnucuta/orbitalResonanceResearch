@@ -78,4 +78,3 @@ class ThermalMap:
       	self.rotation(timesteps)
       facetlist.append(philist)
     return facetlist
-    print(facetlist)
