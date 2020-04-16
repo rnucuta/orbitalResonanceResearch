@@ -28,8 +28,7 @@ def main():
 	ax.set_xlim3d(-100, 100)
 	ax.set_ylim3d(-100, 100)
 	ax.set_zlim3d(-100, 100)
-	file_name = '207tri_sphere.stl'
-	file_length = 206
+	file_name = 'Steins350.stl'
 	plotter = pv.Plotter()
 	sphere_mesh = pv.read(file_name)
 
@@ -42,7 +41,7 @@ def main():
 	with open('./temp_obj.obj', 'rb') as f:
 		Temperature = pickle.load(f)
 	final_temps = Temperature.final_temps
-
+	file_length = len(final_temps[0])
 	#color
 	hexes = []
 	time = 0
