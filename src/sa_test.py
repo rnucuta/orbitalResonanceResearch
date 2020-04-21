@@ -10,3 +10,5 @@ print(stl1.areas.sum())
 print(stl2.areas.sum())
 print(stl3.areas.sum())
 print(stl4.areas.sum())
+
+print(stl1.get_mass_properties())
