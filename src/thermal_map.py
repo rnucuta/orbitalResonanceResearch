@@ -72,9 +72,9 @@ class ThermalMap:
     for f in tqdm(range(len(self.rays_obj.np_asteroid_stl.vectors))):
       philist = []
       for t in range(timesteps):
-      	n = self.rays_obj.np_asteroid_stl.normals[f]
-      	lennorm = np.linalg.norm(n)
-      	philist.append(-np.dot(self.position,n)/(lenpos*lennorm))
-      	self.rotation(timesteps)
+        n = self.rays_obj.np_asteroid_stl.normals[f]
+        lennorm = np.linalg.norm(n)
+        philist.append(abs(np.dot(self.position,n)/(lenpos*lennorm)))
+        self.rotation(timesteps)
       facetlist.append(philist)
     return facetlist

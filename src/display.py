@@ -18,53 +18,70 @@ import numpy as np
 import scipy as sp
 from scipy import spatial as sp_spatial
 import pickle
+import math
 # from temp import te
 #from stl_editor import angles, shadows
 
 def main():
+	# position = [-0.5304365993252850*5, 2.593585584222165*5, 0.3341370462881209*5]
+	# position1 = [5.304365993252850*0.1, -2.593585584222165, -3.341370462881209*0.1]
 	#initialize
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
 	ax.set_xlim3d(-4, 4)
 	ax.set_ylim3d(-4, 4)
 	ax.set_zlim3d(-4, 4)
-	file_name = 'Steins350.stl'
+	file_name = 'Steins1500.stl'
 	plotter = pv.Plotter()
-	sphere_mesh = pv.read(file_name)
+	sphere_mesh1 = mesh.Mesh.from_file(file_name)
+
+	#orient
+	v = [-0.0059690746,-0.0163998975,-0.9998476952]
+	itheta = math.acos(-0.9998476952)
+	axis = np.cross(v,[0,0,1])
+	sphere_mesh1.rotate(axis,itheta)
+	
+	sphere_mesh1.save('Steins1500New.stl')
+	sphere_mesh = pv.read('Steins1500New.stl')
 
 	#shadow
-	with open('./shadow_data.data', 'rb') as f:
+	with open('./1500shadow_data_april.data', 'rb') as f:
 		shadow = pickle.load(f)
 
 	#thermal map
-	with open('./temp_obj.obj', 'rb') as f:
+	with open('./1500temp_obj_april.obj', 'rb') as f:
 		Temperature = pickle.load(f)
 	final_temps = Temperature.final_temps
 	file_length = len(final_temps[0])
+	print(file_length)
+
+	
 
 	#angle
-	angle = Temperature.thermalmap_obj.phi(400)
-	angles = [[0 for k in range(file_length)] for i in range(400)]
-	#facet
-	for i in range(len(angle)):
-		#time
-		for j in range(len(angle[0])):
-			angles[j][i] = angle[i][j]
+	# angle = Temperature.thermalmap_obj.phi(400)
+	# angles = [[0 for k in range(file_length)] for i in range(400)]
+
+	
+	# #facet
+	# for i in range(len(angle)):
+	# 	#time
+	# 	for j in range(len(angle[0])):
+	# 		angles[j][i] = angle[i][j]
 
 	#color
 	hexes = []
 	time = 0
-	# mini = min(final_temps[time])
-	# maxi = max(final_temps[time])
-	mini = min(angles[time])
-	maxi = max(angles[time])
+	mini = min(final_temps[time])
+	maxi = max(final_temps[time])
+	# mini = min(angles[time])
+	# maxi = max(angles[time])
 	for i in range(file_length):
-		#T = final_temps[time][i]
-		T = abs(angles[time][i])
+		T = final_temps[time][i]
+		# T = (angles[time][i])
 		value = RGB(T, mini, maxi)
 		hexes.append(value)
 
-	
+	print("done with color")
 
 
 	#plotting
@@ -78,6 +95,8 @@ def main():
 	faces = []
 	values = sphere_mesh.faces
 	for i in range(file_length):
+		if (i-1) % 100 == 0:
+			print(i)
 		if i in shadow[0]:
 			face = []
 			index = 1
@@ -100,6 +119,10 @@ def main():
 		y = []
 		z = []
 
+	# origin = [0], [0] # origin point
+
+	# ax.quiver(0, 0, 0, -0.5304365993252850*5, 2.593585584222165*5, 0.3341370462881209*5, length=5, normalize=True)
+	# ax.quiver(0, 0, 0, 0.5304365993252850*5, -2.593585584222165*5, -0.3341370462881209*5, length=5, normalize=True)
 	plt.show()
 
 def RGB(T, mini, maxi):
