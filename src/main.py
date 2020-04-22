@@ -23,7 +23,7 @@ print("Vector answer: {}".format(vector_answer))
 print("====================================================")
 print("Torque answer: {}".format(torque_answer))
 print("====================================================")
-save_yark_vector(vector_answer, torque_answer)
+# save_yark_vector(vector_answer, torque_answer)
 
 end = time.time()
 print("Runtime: " + str(datetime.timedelta(seconds=end-start)))
