@@ -70,9 +70,11 @@ class Yarkovsky:
         facettorque = np.cross(facetforce,centroid)
         temporarytorque = np.add(temporarytorque,facettorque)
       torquelist.append(temporarytorque)
+      self.Temperature.thermalmap_obj.rotation(self.Temperature.time_steps)
     finaltorque = [0,0,0]
     print("YORP Iteration Successful")
     for x in torquelist:
       finaltorque = np.add(finaltorque,x)
     return np.divide(finaltorque,len(self.therm_map))
     print("YORP Torque Successful")
+
