@@ -79,7 +79,6 @@ class ThermalMap:
       facetlist.append(philist)
     return facetlist
 
-    (0.0059690746, 0.0163998975, 0.9998476952)
 
 
 
