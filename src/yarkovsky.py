@@ -41,6 +41,7 @@ class Yarkovsky:
         facetforce = np.multiply(normal,(self.therm_map[t][f])**(4) * -2 * boltzmann * emissivity * ds / (3*speedoflight))
         temporaryforce = np.add(temporaryforce,facetforce)
       forcelist.append(temporaryforce)
+      self.Temperature.thermalmap_obj.rotation(self.Temperature.time_steps)
     finalforce = [0,0,0]
     print("Iteration Successful")
     for x in forcelist:
