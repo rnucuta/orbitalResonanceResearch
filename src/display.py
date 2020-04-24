@@ -19,7 +19,7 @@ import scipy as sp
 from scipy import spatial as sp_spatial
 import pickle
 import math
-from yarkovsky import Yarkovsky
+from yarkovsky2 import Yarkovsky
 # from temp import te
 #from stl_editor import angles, shadows
 
@@ -46,11 +46,11 @@ def main():
 	sphere_mesh = pv.read('Steins1500New.stl')
 
 	#shadow
-	with open('./1500shadow_data_june.data', 'rb') as f:
+	with open('./1500shadow_data_april.data', 'rb') as f:
 		shadow = pickle.load(f)
 
 	#thermal map
-	with open('./1500temp_obj_june.obj', 'rb') as f:
+	with open('./1500temp_obj_april.obj', 'rb') as f:
 		Temperature = pickle.load(f)
 	final_temps = Temperature.final_temps
 	file_length = len(final_temps[0])
@@ -135,24 +135,24 @@ def main():
 	# ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
 
 
-	# print("april")
-	# #(1.520184545368283, 1.855273308408771, -3.439558151530418*0.01)
-	# #away from sun
-	# ax.quiver(0, 0, 0, 1.520184545368283, 1.855273308408771, -3.439558151530418*0.01, length=5, normalize=True)
-	# #towards sun
-	# ax.quiver(0, 0, 0, -1.520184545368283, -1.855273308408771, 3.439558151530418*0.01, length=5, normalize=True, color = 'red')
-	# #Yarkovsky vector
-	# ax.quiver(0, 0, 0, xf,  yf,  zf, length=5, normalize=True, color = 'green')
+	print("april")
+	#(1.520184545368283, 1.855273308408771, -3.439558151530418*0.01)
+	#away from sun
+	ax.quiver(0, 0, 0, 1.520184545368283, 1.855273308408771, -3.439558151530418*0.01, length=5, normalize=True)
+	#towards sun
+	ax.quiver(0, 0, 0, -1.520184545368283, -1.855273308408771, 3.439558151530418*0.01, length=5, normalize=True, color = 'red')
+	#Yarkovsky vector
+	ax.quiver(0, 0, 0, xf,  yf,  zf, length=5, normalize=True, color = 'green')
 	
 
-	print("june")
+	#print("june")
 	# #(-2.290581730497342, -7.581072210604362*0.1,  2.546723138083118*0.1)
 	# #away from sun
-	ax.quiver(0, 0, 0, -2.290581730497342, -7.581072210604362*0.1,  2.546723138083118*0.1, length=5, normalize=True)
+	#ax.quiver(0, 0, 0, -2.290581730497342, -7.581072210604362*0.1,  2.546723138083118*0.1, length=5, normalize=True)
 	# #towards sun
-	ax.quiver(0, 0, 0, 2.290581730497342, 7.581072210604362*0.1,  -2.546723138083118*0.1, length=5, normalize=True, color = 'red')
+	#ax.quiver(0, 0, 0, 2.290581730497342, 7.581072210604362*0.1,  -2.546723138083118*0.1, length=5, normalize=True, color = 'red')
 	# #Yarkovsky vector
-	ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
+	#ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
 	
 	plt.show()
 
