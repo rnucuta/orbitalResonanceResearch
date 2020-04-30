@@ -20,6 +20,7 @@ from scipy import spatial as sp_spatial
 import pickle
 import math
 from yarkovsky2 import Yarkovsky
+from colour import Color
 # from temp import te
 #from stl_editor import angles, shadows
 
@@ -47,12 +48,12 @@ def main():
 	sphere_mesh = pv.read('Steins1500New.stl')
 
 	#shadow
-	with open('./1500shadow_data_august.data', 'rb') as f:
+	with open('./1500shadow_data_june.data', 'rb') as f:
 		shadow = pickle.load(f)
 	print(len(shadow))
 	#print(shadow)
 	#thermal map
-	with open('./1500temp_obj_august.obj', 'rb') as f:
+	with open('./1500temp_obj_june.obj', 'rb') as f:
 		Temperature = pickle.load(f)
 	final_temps = Temperature.final_temps
 	file_length = len(final_temps[0])
@@ -128,13 +129,19 @@ def main():
 		y = []
 		z = []
 
-	hexes.sort()
-	cmap0 = mpl.colors.LinearSegmentedColormap.from_list('blue2red', hexes)
+	#color bar
+	black = Color("black")
+	colors = list(black.range_to(Color("red"),100))
+	for i in range(len(colors)):
+		colors[i] = colors[i].rgb
+	#print(colors)
+
+	cmap0 = mpl.colors.LinearSegmentedColormap.from_list('black2red', colors)
 	norm = mpl.colors.Normalize(vmin=mini, vmax=maxi)
 	cbar = ax.figure.colorbar(
             mpl.cm.ScalarMappable(norm=norm, cmap=cmap0),
             ax=ax, fraction=.1)
-
+	#
 
 	# origin = [0], [0] # origin point
 	xf = force[0]
@@ -159,36 +166,40 @@ def main():
 	#ax.quiver(0, 0, 0, xf,  yf,  zf, length=5, normalize=True, color = 'green')
 	
 
-	#print("june")
+	print("june")
 	# #(-2.290581730497342, -7.581072210604362*0.1,  2.546723138083118*0.1)
 	# #away from sun
 	#ax.quiver(0, 0, 0, -2.290581730497342, -7.581072210604362*0.1,  2.546723138083118*0.1, length=5, normalize=True)
 	# #towards sun
-	#ax.quiver(0, 0, 0, 2.290581730497342, 7.581072210604362*0.1,  -2.546723138083118*0.1, length=5, normalize=True, color = 'red')
+	ax.quiver(0, 0, 0, 2.290581730497342, 7.581072210604362*0.1,  -2.546723138083118*0.1, length=5, normalize=True, color = 'black')
 	# #Yarkovsky vector
-	#ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
+	ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = '#0019CF')
+	#Velocity
+	ax.quiver(0, 0, 0, 4.679985944837290*0.001, -9.702886840616147*0.001, -1.640173860718294*0.001, length=5, normalize=True, color = 'red')
 	
 
-	print("August")
+	#print("August")
 	# #(1.959711397005464, -5.801864078647806*0.1, -3.401749684477215*0.1)
 	# #away from sun
 	#ax.quiver(0, 0, 0, 1.959711397005464, -5.801864078647806*0.1, -3.401749684477215*0.1, length=5, normalize=True)
 	#towards sun
-	ax.quiver(0, 0, 0, -1.959711397005464, 5.801864078647806*0.1, 3.401749684477215*0.1, length=5, normalize=True, color = 'red')
+	#ax.quiver(0, 0, 0, -1.959711397005464, 5.801864078647806*0.1, 3.401749684477215*0.1, length=5, normalize=True, color = 'red')
 	#Yarkovsky vector
-	ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
+	#ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
 	#Velocity
-	ax.quiver(0, 0, 0, 4.618418371561278*(10**(-3)), 1.178445529171616*(10**(-2)), 5.074325425021373*(10**(-4)), length=5, normalize=True)
+	#ax.quiver(0, 0, 0, 4.618418371561278*(10**(-3)), 1.178445529171616*(10**(-2)), 5.074325425021373*(10**(-4)), length=5, normalize=True)
+	
 
 	#print("November")
 	# #(-2.226970408619044, 1.412027223728939, 4.614171488645494*0.1)
 	# #away from sun
 	# ax.quiver(0, 0, 0, -2.226970408619044, 1.412027223728939, 4.614171488645494*0.1, length=5, normalize=True)
 	# # #towards sun
-	# ax.quiver(0, 0, 0, 2.226970408619044, -1.412027223728939, -4.614171488645494*0.1, length=5, normalize=True, color = 'red')
+	#ax.quiver(0, 0, 0, 2.226970408619044, -1.412027223728939, -4.614171488645494*0.1, length=5, normalize=True, color = 'red')
 	# # #Yarkovsky vector
-	# ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
-	
+	#ax.quiver(0, 0, 0, xf, yf, zf, length=5, normalize=True, color = 'green')
+	#Velocity
+	#ax.quiver(0, 0, 0, -4.750037856083338*0.001, -8.564532107380698*0.001, -1.669526930106454*0.0001, length=5, normalize=True)
 
 
 	plt.show()

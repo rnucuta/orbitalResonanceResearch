@@ -7,7 +7,7 @@ class Rays:
     self.rays_array=[]
     self.np_asteroid_stl = mesh.Mesh.from_file('Steins1500.stl')
     self.number_of_rays=len(self.np_asteroid_stl.vectors)
-    self.position=[-2.226970408619044, 1.412027223728939, 4.614171488645494*0.1]
+    self.position=[-5.304365993252850*0.1*(2.668/2.647), 2.593585584222165*(2.668/2.647), 0]
   def generate_centroids(self):
     temp=[0,0,0]
     temp2=[]
