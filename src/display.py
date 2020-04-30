@@ -50,7 +50,7 @@ def main():
 	#shadow
 	with open('./1500shadow_data_june.data', 'rb') as f:
 		shadow = pickle.load(f)
-	print(len(shadow))
+	print(len(shadow[0]))
 	#print(shadow)
 	#thermal map
 	with open('./1500temp_obj_june.obj', 'rb') as f:
