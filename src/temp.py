@@ -38,7 +38,7 @@ class Temperature:
 		print("temp1")
 		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array #UNKNOWN
 
-		self.shadow_file=True
+		self.shadow_file=False
 
 		#print("temp2")
 		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
@@ -70,7 +70,7 @@ class Temperature:
 				pickle.dump(self.shadow, f)
 
 		else:
-			with open('./1500shadow_data_november.data', 'rb') as f:
+			with open('./shadow_data.data', 'rb') as f:
 				self.shadow=pickle.load(f)
 
 		#for facets
