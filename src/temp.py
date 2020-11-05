@@ -20,9 +20,9 @@ class Temperature:
 		self.depth_steps = depth_steps
 		self.P = 21768.516 #period of rotation(spin)(seconds)
 		self.gamma = 110 #sqrt(k*rho*C) thermal inertia
-		self.k = 4.5 #thermal conductivity #UNKNOWN
-		self.rho = 1800#density #UNKNOWN
-		self.C = (self.gamma**2)/(self.k*self.rho)#specific heat capacity #UNKNOWN
+		self.k = 4.5 #thermal conductivity
+		self.rho = 1800#density
+		self.C = (self.gamma**2)/(self.k*self.rho)#specific heat capacity
 		self.E = 0.7 #emissivity
 		self.S = 5.67 * (10**-8)#Stefan–Boltzmann constant
 		self.Wsun = 1367 #Power from sun (Wsun/(rh)^2)(W/m^2)
@@ -36,12 +36,12 @@ class Temperature:
 		#300
 		self.facets = self.thermalmap_obj.rays_obj.number_of_rays #number of facets
 		print("temp1")
-		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array #UNKNOWN
+		self.feta = self.thermalmap_obj.phi(time_steps) #si(t), feta(feta) #2d array
 
 		self.shadow_file=False
 
 		#print("temp2")
-		self.shadow = [] #1-not shadowed 0-shadowed #2d array #UNKNOWN
+		self.shadow = [] #1-not shadowed 0-shadowed #2d array
 		# print(feta)
 		# print(shadow)
 		self.dz = 2/self.depth_steps #change in z #0-depth_steps-1
